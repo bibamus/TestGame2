@@ -1,0 +1,62 @@
+using System;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
+
+namespace World
+{
+    public class WorldManager : MonoBehaviour
+    {
+        public int worldWidth = 1000;
+        public int worldHeight = 400;
+
+        public BlockType dirtBlockType;
+        public BlockType stoneBlockType;
+        public BlockType sandBlockType;
+
+        public Tilemap worldTilemap;
+
+        public float scale = 10.0f;
+        public float amplitude = 50.0f;
+        public float frequency = 0.1f;
+
+
+        private WorldState _worldState;
+
+        void Start()
+        {
+            worldTilemap.ClearAllTiles();
+            WorldGenerator worldGenerator = new WorldGenerator
+            {
+                DirtBlockType = dirtBlockType,
+                StoneBlockType = stoneBlockType,
+                Scale = scale,
+                Amplitude = amplitude,
+                Frequency = frequency,
+                DirtBaseHeight = Mathf.FloorToInt(worldHeight*0.7f),
+                StoneBaseHeight = Mathf.FloorToInt(worldHeight*0.4f)
+            };
+            _worldState = worldGenerator.GenerateWorld(worldWidth, worldHeight);
+            UpdateWorldTilemap();
+        }
+        
+        private void UpdateWorldTilemap()
+        {
+            for (int x = 0; x < _worldState.Width; x++)
+            {
+                for (int y = 0; y < _worldState.Height; y++)
+                {
+                    Block block = _worldState.GetBlock(new Vector2Int(x, y));
+                    if (block != null)
+                    {
+                        worldTilemap.SetTile(new Vector3Int(x, y, 0), block.Type.Tile);
+                    }
+                    else
+                    {
+                        worldTilemap.SetTile(new Vector3Int(x, y, 0), null);
+                    }
+                }
+            }
+        }
+    }
+}

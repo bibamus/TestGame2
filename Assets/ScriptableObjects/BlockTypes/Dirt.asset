@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4481f4b6d12bce4daff04d4b99f2652, type: 3}
+  m_Name: Dirt
+  m_EditorClassIdentifier: 
+  <BlockName>k__BackingField: Dirt
+  <Hardness>k__BackingField: 1
+  <Tile>k__BackingField: {fileID: 11400000, guid: c09a6495f12b4874bad53e8133144cbe, type: 2}
