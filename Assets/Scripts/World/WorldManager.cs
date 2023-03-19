@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace World
 {
+    [DefaultExecutionOrder(-1000)]
     public class WorldManager : MonoBehaviour
     {
         public int worldWidth = 1000;
@@ -33,13 +34,13 @@ namespace World
                 Scale = scale,
                 Amplitude = amplitude,
                 Frequency = frequency,
-                DirtBaseHeight = Mathf.FloorToInt(worldHeight*0.7f),
-                StoneBaseHeight = Mathf.FloorToInt(worldHeight*0.4f)
+                DirtBaseHeight = Mathf.FloorToInt(worldHeight * 0.7f),
+                StoneBaseHeight = Mathf.FloorToInt(worldHeight * 0.4f)
             };
             _worldState = worldGenerator.GenerateWorld(worldWidth, worldHeight);
             UpdateWorldTilemap();
         }
-        
+
         private void UpdateWorldTilemap()
         {
             for (int x = 0; x < _worldState.Width; x++)
@@ -57,6 +58,17 @@ namespace World
                     }
                 }
             }
+        }
+
+        public Vector2 GetSpawnPosition()
+        {
+            return _worldState.SpawnPoint;
+        }
+        
+        public Vector3 GetSpawnPositionWorld()
+        {
+            // Convert tilemap coordinates to world coordinates
+            return worldTilemap.CellToWorld((Vector3Int)_worldState.SpawnPoint) + new Vector3(0.5f, 1f, 0f);
         }
     }
 }
