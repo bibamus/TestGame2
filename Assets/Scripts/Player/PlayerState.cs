@@ -14,7 +14,9 @@ namespace Player
         public Weapon equippedWeapon;
 
         public Inventory Inventory;
-        
+
+        public Transform itemAnchor;
+
 
         // [SerializeField] private WeaponData stick;
 
@@ -34,10 +36,10 @@ namespace Player
                 Die();
             }
         }
-        
+
         public void EquipWeapon(Weapon weapon)
         {
-            equippedWeapon = Instantiate(weapon.gameObject, transform).GetComponent<Weapon>();
+            equippedWeapon = Instantiate(weapon.gameObject, itemAnchor).GetComponent<Weapon>();
         }
 
         public void Heal(int health)

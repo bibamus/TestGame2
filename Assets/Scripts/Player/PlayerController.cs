@@ -18,7 +18,7 @@ namespace Player
         [SerializeField] private WorldManager worldManager;
         private CapsuleCollider2D _collider;
 
-        private const float _groundCheckDistance = 0.2f;
+        private const float GroundCheckDistance = 0.2f;
 
         private PlayerState _playerState;
 
@@ -55,7 +55,7 @@ namespace Player
 
             if (Input.GetMouseButtonDown(0))
             {
-                weapon.StartSwing(transform, _facingRight);
+                weapon.StartSwing(_facingRight);
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -67,7 +67,7 @@ namespace Player
         private void UpdateGroundedState()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,
-                _collider.size.y / 2 + _groundCheckDistance, groundLayer);
+                _collider.size.y / 2 + GroundCheckDistance, groundLayer);
             _isGrounded = hit.collider != null;
         }
 
