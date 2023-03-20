@@ -1,3 +1,4 @@
+using Item;
 using UnityEngine;
 using World;
 
@@ -24,10 +25,12 @@ namespace Player
 
         private float _swingTimer = 0f;
         private float _swingDuration = 0.4f;
+        private PlayerState _playerState;
 
 
         void Start()
         {
+            _playerState = GetComponent<PlayerState>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
@@ -45,79 +48,29 @@ namespace Player
             UpdateMovement();
             CheckForJump();
             UpdateFacingDirection();
-            HandleWeapon();
+            if (_playerState.equippedWeapon != null)
+            {
+                HandleWeaponInput();
+            }
         }
 
-        private void HandleWeapon()
+        private void HandleWeaponInput()
         {
-            Transform weaponTransform = null;
-            if (GetComponent<PlayerState>().weaponInstance != null)
-            {
-                weaponTransform = GetComponent<PlayerState>().weaponInstance.transform;
-            }
+            Weapon weapon = _playerState.equippedWeapon;
 
             if (Input.GetMouseButtonDown(0))
             {
-                // Show weapon sprite
-                ShowWeapon(true);
-
-                // Set initial angle for the weapon
-                _weaponAngle = _facingRight ? 270f : 90f;
-
-                // Reset swing timer
-                _swingTimer = 0f;
+                weapon.StartSwing();
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                // Hide weapon sprite
-                ShowWeapon(false);
+                weapon.StopSwing();
             }
 
-            // Update weapon trail and weapon position
-            if (weaponTransform != null && _swingTimer <= _swingDuration)
-            {
-                float swingAngle = 120f; // Change swing angle to modify the range of the swing
-                float swingOffset = 30f; // Change swing offset to modify the starting position of the swing
-
-                _swingTimer += Time.deltaTime;
-                float swingProgress = _swingTimer / _swingDuration;
-                float swingAngleOffset = Mathf.Lerp(0, swingAngle, swingProgress);
-                float radius = 1f; // Change radius to modify the swing range
-                Vector3 weaponOffset = new Vector3(
-                    Mathf.Cos(Mathf.Deg2Rad * (_weaponAngle + swingAngleOffset + swingOffset)) * radius,
-                    Mathf.Sin(Mathf.Deg2Rad * (_weaponAngle + swingAngleOffset + swingOffset)) * radius,
-                    0
-                );
-                Vector3 weaponPosition = transform.position + weaponOffset;
-                weaponTransform.position = weaponPosition;
-
-                // Rotate weapon sprite
-                float rotationZ = -_weaponAngle + (_facingRight ? 90f : 270f);
-                weaponTransform.rotation = Quaternion.Euler(0, 0, rotationZ);
-
-                // Check for collisions with weapon trail
-                Collider2D[] hits = Physics2D.OverlapAreaAll(_previousWeaponPosition, weaponPosition);
-                foreach (Collider2D hit in hits)
-                {
-                    // Handle collision with hit object
-                    // ...
-                }
-
-                _previousWeaponPosition = weaponPosition;
-            }
+            weapon.HandleWeapon(transform, _facingRight);
         }
 
-
-        private void ShowWeapon(bool show)
-        {
-            PlayerState playerState = GetComponent<PlayerState>();
-            if (playerState.weaponInstance != null)
-            {
-                playerState.weaponInstance.SetActive(show);
-            }
-        }
-
-
+        
         private void UpdateGroundedState()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,

@@ -11,12 +11,10 @@ namespace Player
         public int maxMana = 100;
         public int currentMana;
 
-        public Item.Item equippedWeapon;
+        public Weapon equippedWeapon;
 
         public Inventory Inventory;
         
-        public GameObject weaponInstance;
-
 
         // [SerializeField] private WeaponData stick;
 
@@ -37,16 +35,9 @@ namespace Player
             }
         }
         
-        public void EquipWeapon(Item.Item weapon)
+        public void EquipWeapon(Weapon weapon)
         {
-            if (weaponInstance != null)
-            {
-                Destroy(weaponInstance);
-            }
-
-            equippedWeapon = weapon;
-            weaponInstance = Instantiate(equippedWeapon.gameObject, transform);
-            weaponInstance.SetActive(false);
+            equippedWeapon = Instantiate(weapon.gameObject, transform).GetComponent<Weapon>();
         }
 
         public void Heal(int health)
