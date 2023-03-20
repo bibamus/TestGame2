@@ -12,6 +12,7 @@ namespace Player
         public int currentMana;
 
         public Weapon equippedWeapon;
+        public Pickaxe equippedPickaxe;
 
         public Inventory Inventory;
 
@@ -26,6 +27,7 @@ namespace Player
             currentMana = maxMana;
             Inventory = new Inventory();
             EquipWeapon(equippedWeapon);
+            EquipPickaxe(equippedPickaxe);
         }
 
         public void TakeDamage(int damage)
@@ -40,6 +42,13 @@ namespace Player
         public void EquipWeapon(Weapon weapon)
         {
             equippedWeapon = Instantiate(weapon.gameObject, itemAnchor).GetComponent<Weapon>();
+            equippedWeapon.gameObject.SetActive(false);
+        }
+
+        public void EquipPickaxe(Pickaxe pickaxe)
+        {
+            equippedPickaxe = Instantiate(pickaxe.gameObject, itemAnchor).GetComponent<Pickaxe>();
+            equippedPickaxe.gameObject.SetActive(false);
         }
 
         public void Heal(int health)

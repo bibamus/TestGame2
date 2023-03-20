@@ -47,6 +47,25 @@ namespace Player
             {
                 HandleWeaponInput();
             }
+
+            if (_playerState.equippedPickaxe != null)
+            {
+                HandlePickaxeInput();
+            }
+        }
+
+        private void HandlePickaxeInput()
+        {
+            Pickaxe pickaxe = _playerState.equippedPickaxe;
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                pickaxe.StartSwing(_facingRight);
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                pickaxe.StopSwing();
+            }
         }
 
         private void HandleWeaponInput()

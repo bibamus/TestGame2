@@ -3,6 +3,7 @@ using UnityEngine;
 namespace Item
 {
     [System.Serializable]
+    [CreateAssetMenu(fileName = "new ItemData", menuName = "ItemData/ItemData", order = 1)]
     public class ItemData : ScriptableObject
     {
         public string itemName;
