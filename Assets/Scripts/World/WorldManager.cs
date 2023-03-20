@@ -24,7 +24,7 @@ namespace World
 
         private WorldState _worldState;
 
-        void Start()
+        private void Start()
         {
             worldTilemap.ClearAllTiles();
             WorldGenerator worldGenerator = new WorldGenerator
