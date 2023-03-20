@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Item
+namespace Inventory
 {
     [System.Serializable]
     [CreateAssetMenu(fileName = "new ItemData", menuName = "ItemData/ItemData", order = 1)]

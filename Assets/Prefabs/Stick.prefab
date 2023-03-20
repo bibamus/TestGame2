@@ -10,14 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 6023160970936260983}
   - component: {fileID: 8823430521075395573}
-  - component: {fileID: 406160394401954542}
+  - component: {fileID: 3362856902387587936}
+  - component: {fileID: 2592419502873122166}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6023160970936260983
 Transform:
   m_ObjectHideFlags: 0
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &406160394401954542
+--- !u!114 &3362856902387587936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +95,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 161309087994826561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06ed027071a65e94982bb9748b05f5f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 35fdb29e8d57431ab5ee003221d44c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2592419502873122166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161309087994826561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15842b28c7fa1b146b0f1c49354ebba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: eee802971acd12440b241c0e57f925d0, type: 2}

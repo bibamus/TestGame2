@@ -745,8 +745,8 @@ MonoBehaviour:
   currentHp: 0
   maxMana: 100
   currentMana: 0
-  equippedWeapon: {fileID: 406160394401954542, guid: e1d461c2b04c6bf488d82513115a060b, type: 3}
-  equippedPickaxe: {fileID: -7536890974586601153, guid: 7ff131c11eaab6f49b53cab1e982181a, type: 3}
+  equippedWeapon: {fileID: 2592419502873122166, guid: e1d461c2b04c6bf488d82513115a060b, type: 3}
+  equippedPickaxe: {fileID: 7283201027910288424, guid: 7ff131c11eaab6f49b53cab1e982181a, type: 3}
   itemAnchor: {fileID: 1971545745}
 --- !u!1 &1971545744
 GameObject:

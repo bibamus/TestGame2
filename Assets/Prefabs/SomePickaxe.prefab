@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7063911888703275847}
   - component: {fileID: 6032376014056269727}
-  - component: {fileID: -7536890974586601153}
+  - component: {fileID: -5198431539110171415}
+  - component: {fileID: 7283201027910288424}
   m_Layer: 0
   m_Name: SomePickaxe
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6032376014056269727
 SpriteRenderer:
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7536890974586601153
+--- !u!114 &-5198431539110171415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +95,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5099468743060783753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56c90f1ef6b64b04390b8fee23aa0ebd, type: 3}
+  m_Script: {fileID: 11500000, guid: d594f4e262d1423d96c2d8e26fe63e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7283201027910288424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5099468743060783753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15842b28c7fa1b146b0f1c49354ebba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: ea3d4c06b213a7347ae0e38a922e66c6, type: 2}

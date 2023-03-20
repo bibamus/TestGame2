@@ -22,7 +22,7 @@ namespace World
         public float frequency = 0.1f;
 
 
-        private WorldState _worldState;
+        public WorldState _worldState;
 
         private void Start()
         {
@@ -38,6 +38,11 @@ namespace World
                 StoneBaseHeight = Mathf.FloorToInt(worldHeight * 0.4f)
             };
             _worldState = worldGenerator.GenerateWorld(worldWidth, worldHeight);
+            UpdateWorldTilemap();
+        }
+
+        private void Update()
+        {
             UpdateWorldTilemap();
         }
 

@@ -1,4 +1,4 @@
-using Item;
+using Inventory;
 using UnityEngine;
 using World;
 
@@ -21,6 +21,8 @@ namespace Player
         private const float GroundCheckDistance = 0.2f;
 
         private PlayerState _playerState;
+
+        public bool FacingRight => _facingRight;
 
 
         void Start()
@@ -56,29 +58,29 @@ namespace Player
 
         private void HandlePickaxeInput()
         {
-            Pickaxe pickaxe = _playerState.equippedPickaxe;
+            Item pickaxe = _playerState.equippedPickaxe;
 
             if (Input.GetMouseButtonDown(1))
             {
-                pickaxe.StartSwing(_facingRight);
+                pickaxe.StartAction(this);
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                pickaxe.StopSwing();
+                pickaxe.StopAction();
             }
         }
 
         private void HandleWeaponInput()
         {
-            Weapon weapon = _playerState.equippedWeapon;
+            Item weapon = _playerState.equippedWeapon;
 
             if (Input.GetMouseButtonDown(0))
             {
-                weapon.StartSwing(_facingRight);
+                weapon.StartAction(this);
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                weapon.StopSwing();
+                weapon.StopAction();
             }
         }
 
@@ -108,11 +110,11 @@ namespace Player
         private void UpdateFacingDirection()
         {
             float horizontal = Input.GetAxis("Horizontal");
-            if (horizontal > 0 && !_facingRight)
+            if (horizontal > 0 && !FacingRight)
             {
                 Flip();
             }
-            else if (horizontal < 0 && _facingRight)
+            else if (horizontal < 0 && FacingRight)
             {
                 Flip();
             }
@@ -120,7 +122,7 @@ namespace Player
 
         private void Flip()
         {
-            _facingRight = !_facingRight;
+            _facingRight = !FacingRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1;
             transform.localScale = localScale;

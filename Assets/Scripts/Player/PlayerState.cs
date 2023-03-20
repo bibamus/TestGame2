@@ -1,5 +1,4 @@
-using Item;
-using UnityEditor;
+using Inventory;
 using UnityEngine;
 
 namespace Player
@@ -11,15 +10,12 @@ namespace Player
         public int maxMana = 100;
         public int currentMana;
 
-        public Weapon equippedWeapon;
-        public Pickaxe equippedPickaxe;
+        public Item equippedWeapon;
+        public Item equippedPickaxe;
 
         public Inventory Inventory;
 
         public Transform itemAnchor;
-
-
-        // [SerializeField] private WeaponData stick;
 
         private void Start()
         {
@@ -39,17 +35,18 @@ namespace Player
             }
         }
 
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(Item weapon)
         {
-            equippedWeapon = Instantiate(weapon.gameObject, itemAnchor).GetComponent<Weapon>();
+            equippedWeapon = Instantiate(weapon.gameObject, itemAnchor).GetComponent<Item>();
             equippedWeapon.gameObject.SetActive(false);
         }
 
-        public void EquipPickaxe(Pickaxe pickaxe)
+        public void EquipPickaxe(Item pickaxe)
         {
-            equippedPickaxe = Instantiate(pickaxe.gameObject, itemAnchor).GetComponent<Pickaxe>();
+            equippedPickaxe = Instantiate(pickaxe.gameObject, itemAnchor).GetComponent<Item>();
             equippedPickaxe.gameObject.SetActive(false);
         }
+
 
         public void Heal(int health)
         {

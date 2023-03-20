@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Item
+namespace Inventory
 {
     public class SwingableItem : MonoBehaviour
     {

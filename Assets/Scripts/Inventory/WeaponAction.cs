@@ -1,15 +1,16 @@
-namespace Item
+﻿using UnityEngine;
+
+namespace Inventory
 {
-    public class Weapon : Item
+    public class WeaponAction : ItemAction
     {
         private const float SwingDuration = 0.4f;
         private bool _facingRight;
 
-        public void StartSwing(bool facingRight)
+        public override void StartAction(bool facingRight)
         {
             _facingRight = facingRight;
             gameObject.SetActive(true);
-            // StartCoroutine(HandleWeaponCoroutine());
             const float swingAngle = 120f;
             const float swingOffset = 30f;
             const float radius = 1f;
@@ -17,7 +18,7 @@ namespace Item
                 swingAngle, swingOffset, radius));
         }
 
-        public void StopSwing()
+        public override void StopAction()
         {
             gameObject.SetActive(false);
         }
