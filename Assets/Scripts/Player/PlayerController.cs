@@ -18,13 +18,8 @@ namespace Player
         [SerializeField] private WorldManager worldManager;
         private CapsuleCollider2D _collider;
 
-        private float _groundCheckDistance = 0.2f;
+        private const float _groundCheckDistance = 0.2f;
 
-        private Vector3 _previousWeaponPosition;
-        private float _weaponAngle;
-
-        private float _swingTimer = 0f;
-        private float _swingDuration = 0.4f;
         private PlayerState _playerState;
 
 
@@ -60,17 +55,15 @@ namespace Player
 
             if (Input.GetMouseButtonDown(0))
             {
-                weapon.StartSwing();
+                weapon.StartSwing(transform, _facingRight);
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 weapon.StopSwing();
             }
-
-            weapon.HandleWeapon(transform, _facingRight);
         }
 
-        
+
         private void UpdateGroundedState()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,

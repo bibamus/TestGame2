@@ -1,19 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Item
 {
     public class Weapon : Item
     {
-        private float _swingTimer = 0f;
-        private float _swingDuration = 0.4f;
-        private Vector3 _previousWeaponPosition;
-        private float _weaponAngle;
+        private const float SwingDuration = 0.4f;
+        private Transform _playerTransform;
+        private bool _facingRight;
 
-
-        public void StartSwing()
+        public void StartSwing(Transform playerTransform, bool facingRight)
         {
+            _playerTransform = playerTransform;
+            _facingRight = facingRight;
             gameObject.SetActive(true);
-            _swingTimer = 0f;
+            StartCoroutine(HandleWeaponCoroutine());
         }
 
         public void StopSwing()
@@ -21,38 +22,33 @@ namespace Item
             gameObject.SetActive(false);
         }
 
-        public void HandleWeapon(Transform playerTransform, bool facingRight)
+        private IEnumerator HandleWeaponCoroutine()
         {
-            // Only update weapon position if swinging
-            if (gameObject.activeSelf && _swingTimer <= _swingDuration)
-            {
-                const float swingAngle = 120f; // Change swing angle to modify the range of the swing
-                const float swingOffset = 30f; // Change swing offset to modify the starting position of the swing
+            const float swingAngle = 120f;
+            const float swingOffset = 30f;
+            const float radius = 1f;
+            var swingTimer = 0f;
+            float _weaponAngle = 0;
 
-                _swingTimer += Time.deltaTime;
-                float swingProgress = _swingTimer / _swingDuration;
-                // Invert the swing angle when facing right
-                float swingDirection = facingRight ? -1f : 1f;
+            while (swingTimer <= SwingDuration)
+            {
+                swingTimer += Time.deltaTime;
+                float swingProgress = swingTimer / SwingDuration;
+                float swingDirection = _facingRight ? -1f : 1f;
                 float swingAngleOffset = Mathf.Lerp(0, swingAngle * swingDirection, swingProgress);
 
-                const float radius = 1f; // Change radius to modify the swing range
                 Vector3 weaponOffset = new Vector3(
                     Mathf.Cos(Mathf.Deg2Rad * (_weaponAngle + swingAngleOffset + swingOffset)) * radius,
                     Mathf.Sin(Mathf.Deg2Rad * (_weaponAngle + swingAngleOffset + swingOffset)) * radius,
                     0
                 );
-                Vector3 weaponPosition = playerTransform.position + weaponOffset;
+                Vector3 weaponPosition = _playerTransform.position + weaponOffset;
                 transform.position = weaponPosition;
 
-                // Check for collisions with weapon 
-                Collider2D[] hits = Physics2D.OverlapAreaAll(_previousWeaponPosition, weaponPosition);
-                foreach (Collider2D hit in hits)
-                {
-                    // Handle collisions
-                }
-
-                _previousWeaponPosition = weaponPosition;
+                yield return null;
             }
+
+            StopSwing();
         }
     }
 }
