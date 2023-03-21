@@ -37,8 +37,17 @@ namespace UI
             if (eventData.button == PointerEventData.InputButton.Left && ItemDragHandler.Instance.IsDragging())
             {
                 // Add the dragged item to the current slot
-                _slot.Item = ItemDragHandler.Instance.GetItem();
-                _slot.StackSize = ItemDragHandler.Instance.GetStackSize();
+                var item = ItemDragHandler.Instance.GetItem();
+                var stack = ItemDragHandler.Instance.GetStackSize();
+                if (_slot.Item == item)
+                {
+                    _slot.StackSize += stack;
+                }
+                else
+                {
+                    _slot.Item = item;
+                    _slot.StackSize = stack;
+                }
 
                 // Stop dragging the item
                 ItemDragHandler.Instance.EndDrag();
@@ -63,7 +72,5 @@ namespace UI
                 GetComponentInParent<InventoryUI>().UpdateUI();
             }
         }
-
-
     }
 }

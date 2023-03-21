@@ -38,6 +38,7 @@ namespace Inventory
             StackSize = 0;
             Item = null;
         }
+        
     }
 
     public class Inventory
