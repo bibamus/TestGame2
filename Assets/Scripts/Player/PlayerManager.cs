@@ -14,7 +14,6 @@ namespace Player
 
 
         public Transform itemAnchor;
-        private Inventory.Inventory _inventory;
 
         private PlayerState _playerState;
 
@@ -22,12 +21,14 @@ namespace Player
 
         public PlayerController PlayerController { get; private set; }
 
+        public Inventory.Inventory Inventory { get; private set; }
+
 
         private void Start()
         {
             PlayerController = GetComponent<PlayerController>();
             _playerState = new PlayerState(startingMaxHp, startingMaxMana);
-            _inventory = new Inventory.Inventory(100);
+            Inventory = new Inventory.Inventory(100);
             Equipment = new EquipmentManager();
 
             var weapon = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
@@ -37,6 +38,15 @@ namespace Player
             var pickaxe = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
             pickaxe.gameObject.SetActive(false);
             Equipment.EquipPickaxe(pickaxe);
+            
+            // var weapon2 = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
+            // weapon2.gameObject.SetActive(false);
+            //
+            // Inventory.AddItem(weapon2);
+            //
+            // var pickaxe2 = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
+            // pickaxe2.gameObject.SetActive(false);
+            // Inventory.AddItem(pickaxe2);
         }
 
 

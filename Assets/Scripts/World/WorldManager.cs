@@ -22,7 +22,7 @@ namespace World
         public float frequency = 0.1f;
 
 
-        public WorldState _worldState;
+        public WorldState State { get; private set; }
 
         private void Start()
         {
@@ -37,7 +37,7 @@ namespace World
                 DirtBaseHeight = Mathf.FloorToInt(worldHeight * 0.7f),
                 StoneBaseHeight = Mathf.FloorToInt(worldHeight * 0.4f)
             };
-            _worldState = worldGenerator.GenerateWorld(worldWidth, worldHeight);
+            State = worldGenerator.GenerateWorld(worldWidth, worldHeight);
             UpdateWorldTilemap();
         }
 
@@ -48,11 +48,11 @@ namespace World
 
         private void UpdateWorldTilemap()
         {
-            for (int x = 0; x < _worldState.Width; x++)
+            for (int x = 0; x < State.Width; x++)
             {
-                for (int y = 0; y < _worldState.Height; y++)
+                for (int y = 0; y < State.Height; y++)
                 {
-                    Block block = _worldState.GetBlock(new Vector2Int(x, y));
+                    Block block = State.GetBlock(new Vector2Int(x, y));
                     if (block != null)
                     {
                         worldTilemap.SetTile(new Vector3Int(x, y, 0), block.Type.Tile);
@@ -67,13 +67,13 @@ namespace World
 
         public Vector2 GetSpawnPosition()
         {
-            return _worldState.SpawnPoint;
+            return State.SpawnPoint;
         }
         
         public Vector3 GetSpawnPositionWorld()
         {
             // Convert tilemap coordinates to world coordinates
-            return worldTilemap.CellToWorld((Vector3Int)_worldState.SpawnPoint) + new Vector3(0.5f, 1f, 0f);
+            return worldTilemap.CellToWorld((Vector3Int)State.SpawnPoint) + new Vector3(0.5f, 1f, 0f);
         }
     }
 }

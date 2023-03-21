@@ -15,3 +15,4 @@ MonoBehaviour:
   <BlockName>k__BackingField: Dirt
   <Hardness>k__BackingField: 1
   <Tile>k__BackingField: {fileID: 11400000, guid: c09a6495f12b4874bad53e8133144cbe, type: 2}
+  <BlockItem>k__BackingField: {fileID: 2592419502873122166, guid: e1d461c2b04c6bf488d82513115a060b, type: 3}

@@ -24,6 +24,7 @@ namespace Player
 
         public bool FacingRight => _facingRight;
 
+        private InventoryUI _inventoryUI;
 
         void Start()
         {
@@ -31,6 +32,7 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
+            _inventoryUI = FindObjectOfType<InventoryUI>(true);
         }
 
         private Vector3 GetSpawnPositionOffset()
@@ -53,6 +55,11 @@ namespace Player
             if (_playerManager.Equipment.EquippedPickaxe != null)
             {
                 HandlePickaxeInput();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _inventoryUI.ToggleInventory();
             }
         }
 

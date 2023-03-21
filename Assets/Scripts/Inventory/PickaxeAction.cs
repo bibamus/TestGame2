@@ -20,7 +20,7 @@ namespace Inventory
         {
             _facingRight = playerManager.PlayerController.FacingRight;
             StartCoroutine(SwingAndDeactivate(item));
-            StartCoroutine(MineBlockCoroutine(worldManager));
+            StartCoroutine(MineBlockCoroutine(worldManager, playerManager));
         }
 
         
@@ -35,7 +35,7 @@ namespace Inventory
             item.UseEnd();
         }
 
-        private IEnumerator MineBlockCoroutine(WorldManager worldManager)
+        private IEnumerator MineBlockCoroutine(WorldManager worldManager, PlayerManager playerManager)
         {
             // Wait for the swing animation to reach the point where the pickaxe should hit the block
             yield return new WaitForSeconds(SwingDuration / 2);
@@ -45,16 +45,15 @@ namespace Inventory
 
             Vector3Int tilePosition = worldManager.worldTilemap.WorldToCell(mouseWorldPos);
 
-            Block block = worldManager._worldState.GetBlock(new Vector2Int(tilePosition.x, tilePosition.y));
+            Block block = worldManager.State.GetBlock(new Vector2Int(tilePosition.x, tilePosition.y));
 
             if (block != null)
             {
-                worldManager._worldState.RemoveBlock(new Vector2Int(tilePosition.x, tilePosition.y));
                 // Get the corresponding item for the mined block directly from the BlockType
                 Item blockItem = block.Type.BlockItem;
                 // Add the mined item to the player's inventory
-                // _playerManager.Inventory.AddItem(blockItem, 1);
-                worldManager._worldState.RemoveBlock(new Vector2Int(tilePosition.x, tilePosition.y));
+                playerManager.Inventory.AddItem(blockItem, 1);
+                worldManager.State.RemoveBlock(new Vector2Int(tilePosition.x, tilePosition.y));
             }
         }
     }
