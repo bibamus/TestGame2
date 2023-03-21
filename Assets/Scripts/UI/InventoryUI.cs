@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Inventory;
 using Player;
+using UI;
 using Unity.VisualScripting;
 
 public class InventoryUI : MonoBehaviour
@@ -11,11 +12,11 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GridLayoutGroup gridLayoutGroup;
     [SerializeField] private GameObject inventorySlotPrefab;
 
-    private PlayerManager playerManager;
+    private PlayerManager _playerManager;
 
     private void Start()
     {
-        playerManager = FindObjectOfType<PlayerManager>();
+        _playerManager = FindObjectOfType<PlayerManager>();
         gameObject.SetActive(false);
     }
 
@@ -29,7 +30,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         // Get the inventory slots
-        InventorySlot[] slots = playerManager.Inventory.GetSlots();
+        InventorySlot[] slots = _playerManager.Inventory.GetSlots();
 
         // Create UI elements for each slot
         for (int i = 0; i < slots.Length; i++)

@@ -1,4 +1,5 @@
 using Inventory;
+using UI;
 using UnityEngine;
 using World;
 
@@ -25,6 +26,7 @@ namespace Player
         public bool FacingRight => _facingRight;
 
         private InventoryUI _inventoryUI;
+        private EquipmentUI _equipmentUI;
 
         void Start()
         {
@@ -33,6 +35,7 @@ namespace Player
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
             _inventoryUI = FindObjectOfType<InventoryUI>(true);
+            _equipmentUI = FindObjectOfType<EquipmentUI>(true);
         }
 
         private Vector3 GetSpawnPositionOffset()
@@ -60,7 +63,9 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.R))
             {
                 _inventoryUI.ToggleInventory();
+                _equipmentUI.ToggleEquipment();
             }
+            
         }
 
         private void HandlePickaxeInput()

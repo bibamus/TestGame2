@@ -6,8 +6,8 @@ namespace Inventory
 {
     public class InventorySlot
     {
-        public Item Item { get; }
-        public int StackSize { get; private set; }
+        public Item Item { get; set; }
+        public int StackSize { get; set; }
 
         public InventorySlot(Item item, int stackSize)
         {
@@ -26,6 +26,17 @@ namespace Inventory
             {
                 StackSize -= count;
             }
+
+            if (StackSize == 0)
+            {
+                Item = null;
+            }
+        }
+
+        public void RemoveAll()
+        {
+            StackSize = 0;
+            Item = null;
         }
     }
 
@@ -37,12 +48,17 @@ namespace Inventory
         public Inventory(int maxSize)
         {
             _slots = new InventorySlot[maxSize];
+            for (int i = 0; i < _slots.Length; i++)
+            {
+                _slots[i] = new InventorySlot(null, 0);
+            }
+
             _maxSize = maxSize;
         }
 
         public void AddItem(Item item, int count = 1)
         {
-            if(item == null) return;
+            if (item == null) return;
             var inventorySlot = _slots.FirstOrDefault(s => s != null && s.Item == item);
             if (inventorySlot != null)
             {
@@ -50,10 +66,11 @@ namespace Inventory
             }
             else
             {
-                var availableSlotIndex = Array.FindIndex(_slots, s => s == null);
+                var availableSlotIndex = Array.FindIndex(_slots, s => s.Item == null);
                 if (availableSlotIndex >= 0)
                 {
-                    _slots[availableSlotIndex] = new InventorySlot(item, count);
+                    _slots[availableSlotIndex].Item = item;
+                    _slots[availableSlotIndex].StackSize = count;
                 }
             }
         }
@@ -64,12 +81,6 @@ namespace Inventory
             if (inventorySlot != null)
             {
                 inventorySlot.Remove(count);
-                if (inventorySlot.StackSize == 0)
-                {
-                    // Free the slot by setting it to null
-                    int index = Array.IndexOf(_slots, inventorySlot);
-                    _slots[index] = null;
-                }
             }
         }
 
