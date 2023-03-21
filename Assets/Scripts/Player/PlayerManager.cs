@@ -1,13 +1,13 @@
 using Inventory;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerManager : MonoBehaviour
     {
-        public int maxHp = 100;
-        public int maxMana = 100;
-
+        public int startingMaxHp = 100;
+        public int startingMaxMana = 100;
 
         public Item startingWeapon;
         public Item startingPickaxe;
@@ -17,24 +17,26 @@ namespace Player
         private Inventory.Inventory _inventory;
 
         private PlayerState _playerState;
-        private EquipmentManager _equipment;
 
-        public EquipmentManager Equipment => _equipment;
+        public EquipmentManager Equipment { get; private set; }
+
+        public PlayerController PlayerController { get; private set; }
 
 
         private void Start()
         {
-            _playerState = new PlayerState(maxHp, maxMana);
+            PlayerController = GetComponent<PlayerController>();
+            _playerState = new PlayerState(startingMaxHp, startingMaxMana);
             _inventory = new Inventory.Inventory(100);
-            _equipment = new EquipmentManager();
+            Equipment = new EquipmentManager();
 
             var weapon = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
             weapon.gameObject.SetActive(false);
-            _equipment.EquipWeapon(weapon);
+            Equipment.EquipWeapon(weapon);
 
             var pickaxe = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
             pickaxe.gameObject.SetActive(false);
-            _equipment.EquipPickaxe(pickaxe);
+            Equipment.EquipPickaxe(pickaxe);
         }
 
 

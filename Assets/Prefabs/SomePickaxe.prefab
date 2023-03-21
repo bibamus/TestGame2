@@ -111,3 +111,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: ea3d4c06b213a7347ae0e38a922e66c6, type: 2}
+  onUseStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -5198431539110171415}
+        m_TargetAssemblyTypeName: Inventory.PickaxeAction, Assembly-CSharp
+        m_MethodName: StartAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onUseEnd:
+    m_PersistentCalls:
+      m_Calls: []

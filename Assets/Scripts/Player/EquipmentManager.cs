@@ -12,39 +12,53 @@ namespace Player
         public Item EquippedTrinket1 { get; private set; }
         public Item EquippedTrinket2 { get; private set; }
 
-        public void EquipWeapon(Item weapon)
+        public Item EquipWeapon(Item weapon)
         {
+            Item oldWeapon = EquippedWeapon;
             EquippedWeapon = weapon;
+            return oldWeapon;
         }
 
-        public void EquipPickaxe(Item pickaxe)
+        public Item EquipPickaxe(Item pickaxe)
         {
+            Item oldPickaxe = EquippedPickaxe;
             EquippedPickaxe = pickaxe;
+            return oldPickaxe;
         }
 
-        public void EquipAxe(Item axe)
+        public Item EquipAxe(Item axe)
         {
+            Item oldAxe = EquippedAxe;
             EquippedAxe = axe;
+            return oldAxe;
         }
 
-        public void EquipHelm(Item helm)
+        public Item EquipHelm(Item helm)
         {
+            Item oldHelm = EquippedHelm;
             EquippedHelm = helm;
+            return oldHelm;
         }
 
-        public void EquipChest(Item chest)
+        public Item EquipChest(Item chest)
         {
+            Item oldChest = EquippedChest;
             EquippedChest = chest;
+            return oldChest;
         }
 
-        public void EquipTrinket1(Item trinket1)
+        public Item EquipTrinket1(Item trinket1)
         {
+            Item oldTrinket1 = EquippedTrinket1;
             EquippedTrinket1 = trinket1;
+            return oldTrinket1;
         }
 
-        public void EquipTrinket2(Item trinket2)
+        public Item EquipTrinket2(Item trinket2)
         {
+            Item oldTrinket2 = EquippedTrinket2;
             EquippedTrinket2 = trinket2;
+            return oldTrinket2;
         }
     }
 }

@@ -62,11 +62,11 @@ namespace Player
 
             if (Input.GetMouseButtonDown(1))
             {
-                pickaxe.StartAction(this);
+                pickaxe.UseStart();
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                pickaxe.StopAction();
+                pickaxe.UseEnd();
             }
         }
 
@@ -76,11 +76,11 @@ namespace Player
 
             if (Input.GetMouseButtonDown(0))
             {
-                weapon.StartAction(this);
+                weapon.UseStart();
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                weapon.StopAction();
+                weapon.UseEnd();
             }
         }
 

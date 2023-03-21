@@ -1,6 +1,10 @@
+using System;
 using Player;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
+using World;
 
 namespace Inventory
 {
@@ -8,24 +12,31 @@ namespace Inventory
     public class Item : MonoBehaviour
     {
         public ItemData itemData;
-        private ItemAction _itemAction;
+
+        public UnityEvent<PlayerManager, WorldManager, Item> onUseStart;
+        public UnityEvent<PlayerManager, WorldManager, Item> onUseEnd;
+        private PlayerManager _playerManager;
+        private WorldManager _worldManager;
+
 
         private void Awake()
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = itemData.itemSprite;
-            _itemAction = GetComponent<ItemAction>();
+            _playerManager = FindObjectOfType<PlayerManager>();
+            _worldManager = FindObjectOfType<WorldManager>();
         }
 
-        public void StartAction(PlayerController playerController)
+        public void UseStart()
         {
-            if (_itemAction != null)
-                _itemAction.StartAction(playerController.FacingRight);
+            gameObject.SetActive(true);
+            onUseStart.Invoke(_playerManager, _worldManager, this);
         }
 
-        public void StopAction()
+        public void UseEnd()
         {
-            if (_itemAction != null) _itemAction.StopAction();
+            onUseEnd.Invoke(_playerManager, _worldManager, this);
+            gameObject.SetActive(false);
         }
     }
 }

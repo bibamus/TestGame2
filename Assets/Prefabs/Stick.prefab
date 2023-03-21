@@ -111,3 +111,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: eee802971acd12440b241c0e57f925d0, type: 2}
+  onUseStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3362856902387587936}
+        m_TargetAssemblyTypeName: Inventory.WeaponAction, Assembly-CSharp
+        m_MethodName: StartAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onUseEnd:
+    m_PersistentCalls:
+      m_Calls: []
