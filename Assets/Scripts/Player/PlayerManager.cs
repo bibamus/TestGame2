@@ -8,33 +8,63 @@ namespace Player
         public int maxHp = 100;
         public int maxMana = 100;
 
-        public Item equippedWeapon;
-        public Item equippedPickaxe;
 
-        public Inventory.Inventory Inventory;
+        public Item startingWeapon;
+        public Item startingPickaxe;
+
 
         public Transform itemAnchor;
+        private Inventory.Inventory _inventory;
 
-        public PlayerState State { get; private set; }
+        private PlayerState _playerState;
+        private EquipmentManager _equipment;
+
+        public EquipmentManager Equipment => _equipment;
+
 
         private void Start()
         {
-            State = new PlayerState(maxHp, maxMana);
-            Inventory = new Inventory.Inventory(100);
-            EquipWeapon(equippedWeapon);
-            EquipPickaxe(equippedPickaxe);
+            _playerState = new PlayerState(maxHp, maxMana);
+            _inventory = new Inventory.Inventory(100);
+            _equipment = new EquipmentManager();
+
+            var weapon = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
+            weapon.gameObject.SetActive(false);
+            _equipment.EquipWeapon(weapon);
+
+            var pickaxe = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
+            pickaxe.gameObject.SetActive(false);
+            _equipment.EquipPickaxe(pickaxe);
         }
 
-        public void EquipWeapon(Item weapon)
+
+        public void TakeDamage(int damage)
         {
-            equippedWeapon = Instantiate(weapon.gameObject, itemAnchor).GetComponent<Item>();
-            equippedWeapon.gameObject.SetActive(false);
+            _playerState.CurrentHp -= damage;
+            if (_playerState.CurrentHp <= 0)
+            {
+                Die();
+            }
         }
 
-        public void EquipPickaxe(Item pickaxe)
+        public void Heal(int health)
         {
-            equippedPickaxe = Instantiate(pickaxe.gameObject, itemAnchor).GetComponent<Item>();
-            equippedPickaxe.gameObject.SetActive(false);
+            _playerState.CurrentHp = Mathf.Clamp(_playerState.CurrentHp + health, 0, _playerState.MaxHp);
+        }
+
+        public void UseMana(int manaCost)
+        {
+            _playerState.CurrentMana = Mathf.Clamp(_playerState.CurrentMana - manaCost, 0, _playerState.MaxMana);
+        }
+
+        public void RestoreMana(int mana)
+        {
+            _playerState.CurrentMana = Mathf.Clamp(_playerState.CurrentMana + mana, 0, _playerState.MaxMana);
+        }
+
+        private void Die()
+        {
+            // Handle player death, e.g., respawn or show game over screen
         }
     }
 }

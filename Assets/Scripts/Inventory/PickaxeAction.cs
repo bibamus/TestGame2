@@ -55,7 +55,7 @@ namespace Inventory
                 // Get the corresponding item for the mined block directly from the BlockType
                 Item blockItem = block.Type.BlockItem;
                 // Add the mined item to the player's inventory
-                _playerManager.Inventory.AddItem(blockItem, 1);
+                // _playerManager.Inventory.AddItem(blockItem, 1);
                 _worldManager._worldState.RemoveBlock(new Vector2Int(tilePosition.x, tilePosition.y));
             }
         }

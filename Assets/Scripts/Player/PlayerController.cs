@@ -45,12 +45,12 @@ namespace Player
             UpdateMovement();
             CheckForJump();
             UpdateFacingDirection();
-            if (_playerManager.equippedWeapon != null)
+            if (_playerManager.Equipment.EquippedWeapon != null)
             {
                 HandleWeaponInput();
             }
 
-            if (_playerManager.equippedPickaxe != null)
+            if (_playerManager.Equipment.EquippedPickaxe != null)
             {
                 HandlePickaxeInput();
             }
@@ -58,7 +58,7 @@ namespace Player
 
         private void HandlePickaxeInput()
         {
-            Item pickaxe = _playerManager.equippedPickaxe;
+            Item pickaxe = _playerManager.Equipment.EquippedPickaxe;
 
             if (Input.GetMouseButtonDown(1))
             {
@@ -72,7 +72,7 @@ namespace Player
 
         private void HandleWeaponInput()
         {
-            Item weapon = _playerManager.equippedWeapon;
+            Item weapon = _playerManager.Equipment.EquippedWeapon;
 
             if (Input.GetMouseButtonDown(0))
             {
