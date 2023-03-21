@@ -33,8 +33,22 @@ namespace UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            // Check if it's a left click and there's an item being dragged
+            if (eventData.button == PointerEventData.InputButton.Left && ItemDragHandler.Instance.IsDragging())
+            {
+                // Add the dragged item to the current slot
+                _slot.Item = ItemDragHandler.Instance.GetItem();
+                _slot.StackSize = ItemDragHandler.Instance.GetStackSize();
+
+                // Stop dragging the item
+                ItemDragHandler.Instance.EndDrag();
+
+                // Update the inventory UI
+                GetComponentInParent<InventoryUI>().UpdateUI();
+            }
+
             // Check if it's a left click and the slot is not empty
-            if (eventData.button == PointerEventData.InputButton.Left && _slot != null && _slot.Item != null)
+            else if (eventData.button == PointerEventData.InputButton.Left && _slot != null && _slot.Item != null)
             {
                 // Remove the item from the inventory
                 PlayerManager playerManager = FindObjectOfType<PlayerManager>();
@@ -43,11 +57,13 @@ namespace UI
                 _slot.RemoveAll();
 
                 // Start dragging the item with ItemDragHandler
-                ItemDragHandler.Instance.StartDrag(item,stack);
+                ItemDragHandler.Instance.StartDrag(item, stack);
 
                 // Update the inventory UI
                 GetComponentInParent<InventoryUI>().UpdateUI();
             }
         }
+
+
     }
 }

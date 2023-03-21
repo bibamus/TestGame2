@@ -48,10 +48,27 @@ namespace UI
         {
             if (_draggedItemObject != null)
             {
+                _item = null;
+                _stack = 0;
                 Destroy(_draggedItemObject);
                 _draggedItemObject = null;
                 _draggedItemRectTransform = null;
             }
+        }
+        
+        public bool IsDragging()
+        {
+            return _item != null;
+        }
+
+        public Item GetItem()
+        {
+            return _item;
+        }
+
+        public int GetStackSize()
+        {
+            return _stack;
         }
 
         private void Update()
