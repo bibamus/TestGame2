@@ -20,14 +20,14 @@ namespace Player
 
         private const float GroundCheckDistance = 0.2f;
 
-        private PlayerState _playerState;
+        private PlayerManager _playerManager;
 
         public bool FacingRight => _facingRight;
 
 
         void Start()
         {
-            _playerState = GetComponent<PlayerState>();
+            _playerManager = GetComponent<PlayerManager>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
@@ -45,12 +45,12 @@ namespace Player
             UpdateMovement();
             CheckForJump();
             UpdateFacingDirection();
-            if (_playerState.equippedWeapon != null)
+            if (_playerManager.equippedWeapon != null)
             {
                 HandleWeaponInput();
             }
 
-            if (_playerState.equippedPickaxe != null)
+            if (_playerManager.equippedPickaxe != null)
             {
                 HandlePickaxeInput();
             }
@@ -58,7 +58,7 @@ namespace Player
 
         private void HandlePickaxeInput()
         {
-            Item pickaxe = _playerState.equippedPickaxe;
+            Item pickaxe = _playerManager.equippedPickaxe;
 
             if (Input.GetMouseButtonDown(1))
             {
@@ -72,7 +72,7 @@ namespace Player
 
         private void HandleWeaponInput()
         {
-            Item weapon = _playerState.equippedWeapon;
+            Item weapon = _playerManager.equippedWeapon;
 
             if (Input.GetMouseButtonDown(0))
             {

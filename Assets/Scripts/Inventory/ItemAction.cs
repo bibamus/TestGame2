@@ -20,7 +20,7 @@ namespace Inventory
             // No action to be performed when consumable item is used
         }
 
-        public void Consume(Player.PlayerState playerState)
+        public void Consume(Player.PlayerManager playerManager)
         {
             // Add logic on consume
             Destroy(gameObject);

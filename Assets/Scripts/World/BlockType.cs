@@ -1,3 +1,4 @@
+using Inventory;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,5 +13,7 @@ namespace World
         public int Hardness { get; private set; }
         [field:SerializeField]
         public TileBase Tile { get; private set; }
+        [field: SerializeField]
+        public Item BlockItem { get; private set; }
     }
 }
