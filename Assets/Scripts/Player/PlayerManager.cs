@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Player
 {
+    [DefaultExecutionOrder(-900)]
     public class PlayerManager : MonoBehaviour
     {
         public int startingMaxHp = 100;

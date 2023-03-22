@@ -1,53 +1,54 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
 using Inventory;
 using Player;
-using UI;
-using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private GameObject inventoryPanel;
-    [SerializeField] private GridLayoutGroup gridLayoutGroup;
-    [SerializeField] private GameObject inventorySlotPrefab;
-
-    private PlayerManager _playerManager;
-
-    private void Start()
+    public class InventoryUI : MonoBehaviour
     {
-        _playerManager = FindObjectOfType<PlayerManager>();
-        gameObject.SetActive(false);
-    }
+        [SerializeField] private GameObject inventoryPanel;
+        [SerializeField] private GridLayoutGroup gridLayoutGroup;
+        [SerializeField] private GameObject inventorySlotPrefab;
 
+        private PlayerManager _playerManager;
 
-    public void UpdateUI()
-    {
-        // Clear the current UI
-        foreach (Transform child in gridLayoutGroup.transform)
+        private void Start()
         {
-            Destroy(child.gameObject);
+            _playerManager = FindObjectOfType<PlayerManager>();
+            _playerManager.Inventory.OnInventorySlotChanged += UpdateUI;
+            gameObject.SetActive(false);
         }
 
-        // Get the inventory slots
-        InventorySlot[] slots = _playerManager.Inventory.GetSlots();
 
-        // Create UI elements for each slot
-        for (int i = 0; i < slots.Length; i++)
+        public void UpdateUI()
         {
-            GameObject slotObj = Instantiate(inventorySlotPrefab, gridLayoutGroup.transform);
-            InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();
-            slotUI.SetSlot(slots[i]);
+            // Clear the current UI
+            foreach (Transform child in gridLayoutGroup.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            // Get the inventory slots
+            InventorySlot[] slots = _playerManager.Inventory.GetSlots();
+
+            // Create UI elements for each slot
+            for (int i = 0; i < slots.Length; i++)
+            {
+                GameObject slotObj = Instantiate(inventorySlotPrefab, gridLayoutGroup.transform);
+                InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();
+                slotUI.SetSlot(slots[i]);
+            }
         }
-    }
 
-    public void ToggleInventory()
-    {
-        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-
-        if (inventoryPanel.activeSelf)
+        public void ToggleInventory()
         {
-            UpdateUI();
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+
+            if (inventoryPanel.activeSelf)
+            {
+                UpdateUI();
+            }
         }
     }
 }

@@ -6,6 +6,8 @@ namespace Inventory
 {
     public class InventorySlot
     {
+        public event Action OnStateChanged;
+
         public Item Item { get; set; }
         public int StackSize { get; set; }
 
@@ -18,6 +20,7 @@ namespace Inventory
         public void Add(int count)
         {
             StackSize += count;
+            OnStateChanged?.Invoke();
         }
 
         public void Remove(int count)
@@ -31,18 +34,23 @@ namespace Inventory
             {
                 Item = null;
             }
+
+            OnStateChanged?.Invoke();
         }
 
         public void RemoveAll()
         {
             StackSize = 0;
             Item = null;
+            OnStateChanged?.Invoke();
         }
-        
     }
+
 
     public class Inventory
     {
+        public event Action OnInventorySlotChanged;
+
         private readonly InventorySlot[] _slots;
         private readonly int _maxSize;
 
@@ -52,6 +60,7 @@ namespace Inventory
             for (int i = 0; i < _slots.Length; i++)
             {
                 _slots[i] = new InventorySlot(null, 0);
+                _slots[i].OnStateChanged += () => OnInventorySlotChanged?.Invoke();
             }
 
             _maxSize = maxSize;
