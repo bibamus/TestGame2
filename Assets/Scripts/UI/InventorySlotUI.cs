@@ -1,3 +1,4 @@
+using System;
 using Inventory;
 using Player;
 using UnityEngine;
@@ -17,7 +18,18 @@ namespace UI
         {
             _slot = slot;
 
-            if (slot.Item == null)
+            UpdateSlot();
+            _slot.OnStateChanged += UpdateSlot;
+        }
+
+        private void OnEnable()
+        {
+            UpdateSlot();
+        }
+
+        private void UpdateSlot()
+        {
+            if (_slot.Item == null)
             {
                 itemIcon.enabled = false;
                 itemCount.enabled = false;
@@ -26,8 +38,8 @@ namespace UI
             {
                 itemIcon.enabled = true;
                 itemCount.enabled = true;
-                itemIcon.sprite = slot.Item.itemData.itemSprite;
-                itemCount.text = slot.StackSize.ToString();
+                itemIcon.sprite = _slot.Item.itemData.itemSprite;
+                itemCount.text = _slot.StackSize.ToString();
             }
         }
 
@@ -41,19 +53,16 @@ namespace UI
                 var stack = ItemDragHandler.Instance.GetStackSize();
                 if (_slot.Item == item)
                 {
-                    _slot.StackSize += stack;
+                    _slot.Add(stack);
                 }
                 else
                 {
-                    _slot.Item = item;
-                    _slot.StackSize = stack;
+                    _slot.Add(item, stack);
                 }
 
                 // Stop dragging the item
                 ItemDragHandler.Instance.EndDrag();
 
-                // Update the inventory UI
-                GetComponentInParent<InventoryUI>().UpdateUI();
             }
 
             // Check if it's a left click and the slot is not empty
@@ -68,8 +77,6 @@ namespace UI
                 // Start dragging the item with ItemDragHandler
                 ItemDragHandler.Instance.StartDrag(item, stack);
 
-                // Update the inventory UI
-                GetComponentInParent<InventoryUI>().UpdateUI();
             }
         }
     }

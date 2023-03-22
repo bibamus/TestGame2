@@ -1,6 +1,7 @@
 using Inventory;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -11,28 +12,17 @@ namespace UI
         [SerializeField] private GridLayoutGroup gridLayoutGroup;
         [SerializeField] private GameObject inventorySlotPrefab;
 
-        private PlayerManager _playerManager;
+
+        [SerializeField] private PlayerManager playerManager;
+        private Inventory.Inventory _inventory;
 
         private void Start()
         {
-            _playerManager = FindObjectOfType<PlayerManager>();
-            _playerManager.Inventory.OnInventorySlotChanged += UpdateUI;
+            _inventory = playerManager.Inventory;
             gameObject.SetActive(false);
-        }
 
+            InventorySlot[] slots = _inventory.GetSlots();
 
-        public void UpdateUI()
-        {
-            // Clear the current UI
-            foreach (Transform child in gridLayoutGroup.transform)
-            {
-                Destroy(child.gameObject);
-            }
-
-            // Get the inventory slots
-            InventorySlot[] slots = _playerManager.Inventory.GetSlots();
-
-            // Create UI elements for each slot
             for (int i = 0; i < slots.Length; i++)
             {
                 GameObject slotObj = Instantiate(inventorySlotPrefab, gridLayoutGroup.transform);
@@ -41,14 +31,10 @@ namespace UI
             }
         }
 
+
         public void ToggleInventory()
         {
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-
-            if (inventoryPanel.activeSelf)
-            {
-                UpdateUI();
-            }
         }
     }
 }

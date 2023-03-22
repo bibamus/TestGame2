@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 
 namespace Inventory
 {
@@ -43,6 +44,16 @@ namespace Inventory
             StackSize = 0;
             Item = null;
             OnStateChanged?.Invoke();
+        }
+
+        public void Add(Item item, int stack)
+        {
+            if (Item == null)
+            {
+                Item = item;
+                StackSize = stack;
+                OnStateChanged?.Invoke();
+            }
         }
     }
 

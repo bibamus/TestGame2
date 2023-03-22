@@ -755,6 +755,7 @@ MonoBehaviour:
   inventoryPanel: {fileID: 912193550}
   gridLayoutGroup: {fileID: 912193555}
   inventorySlotPrefab: {fileID: 7391710853774597261, guid: b28ebbaff6d9faa41a149ed89e4bbff3, type: 3}
+  playerManager: {fileID: 1395021612}
 --- !u!114 &912193553
 MonoBehaviour:
   m_ObjectHideFlags: 0
