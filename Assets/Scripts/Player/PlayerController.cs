@@ -50,7 +50,7 @@ namespace Player
             UpdateMovement();
             CheckForJump();
             UpdateFacingDirection();
-            if (_playerManager.Equipment.EquippedWeapon != null)
+            if (_playerManager.WeaponObject != null)
             {
                 HandleWeaponInput();
             }
@@ -84,7 +84,7 @@ namespace Player
 
         private void HandleWeaponInput()
         {
-            Item weapon = _playerManager.Equipment.EquippedWeapon;
+            Item weapon = _playerManager.WeaponObject;
 
             if (Input.GetMouseButtonDown(0))
             {

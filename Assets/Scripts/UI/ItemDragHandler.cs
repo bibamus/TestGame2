@@ -32,7 +32,7 @@ namespace UI
             _canvas = GetComponent<Canvas>();
         }
 
-        public void StartDrag(Item item, int stack)
+        public void StartDrag(Item item, int stack = 1)
         {
             if (item == null || stack == 0 || _draggedItemObject != null) return;
 
@@ -55,7 +55,7 @@ namespace UI
                 _draggedItemRectTransform = null;
             }
         }
-        
+
         public bool IsDragging()
         {
             return _item != null;

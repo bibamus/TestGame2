@@ -14,21 +14,16 @@ namespace UI
 
 
         [SerializeField] private PlayerManager playerManager;
-        private Inventory.Inventory _inventory;
 
         private void Start()
         {
-            _inventory = playerManager.Inventory;
-            gameObject.SetActive(false);
-
-            InventorySlot[] slots = _inventory.GetSlots();
-
-            for (int i = 0; i < slots.Length; i++)
+            foreach (var slot in playerManager.Inventory.GetSlots())
             {
                 GameObject slotObj = Instantiate(inventorySlotPrefab, gridLayoutGroup.transform);
                 InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();
-                slotUI.SetSlot(slots[i]);
+                slotUI.SetSlot(slot);
             }
+            inventoryPanel.SetActive(false);
         }
 
 

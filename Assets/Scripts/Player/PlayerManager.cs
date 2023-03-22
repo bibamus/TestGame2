@@ -1,4 +1,5 @@
 using Inventory;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,11 +19,14 @@ namespace Player
 
         private PlayerState _playerState;
 
-        public EquipmentManager Equipment { get; private set; }
+        public Equipment Equipment { get; private set; }
 
         public PlayerController PlayerController { get; private set; }
 
         public Inventory.Inventory Inventory { get; private set; }
+
+        public Item WeaponObject { get; private set; }
+        public Item PickaxeObject { get; private set; }
 
 
         private void Start()
@@ -30,16 +34,14 @@ namespace Player
             PlayerController = GetComponent<PlayerController>();
             _playerState = new PlayerState(startingMaxHp, startingMaxMana);
             Inventory = new Inventory.Inventory(100);
-            Equipment = new EquipmentManager();
-
-            var weapon = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
-            weapon.gameObject.SetActive(false);
-            Equipment.EquipWeapon(weapon);
+            Equipment = new Equipment();
+            
+            EquipWeapon(startingWeapon);
 
             var pickaxe = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
             pickaxe.gameObject.SetActive(false);
-            Equipment.EquipPickaxe(pickaxe);
-            
+            EquipPickaxe(pickaxe);
+
             // var weapon2 = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
             // weapon2.gameObject.SetActive(false);
             //
@@ -50,6 +52,32 @@ namespace Player
             // Inventory.AddItem(pickaxe2);
         }
 
+        public Item EquipWeapon(Item weapon)
+        {
+            Item oldWeapon = Equipment.EquippedWeapon;
+            Equipment.EquippedWeapon = weapon;
+            if (WeaponObject != null)
+            {
+                Destroy(WeaponObject,1f);
+            }
+
+            WeaponObject = Instantiate(weapon, itemAnchor);
+
+            return oldWeapon;
+        }
+
+        public Item EquipPickaxe(Item pickaxe)
+        {
+            Item oldPickaxe = Equipment.EquippedPickaxe;
+            Equipment.EquippedPickaxe = pickaxe;
+            if (PickaxeObject != null)
+            {
+                Destroy(PickaxeObject,1f);
+            }
+            PickaxeObject = Instantiate(pickaxe, itemAnchor);
+
+            return oldPickaxe;
+        }
 
         public void TakeDamage(int damage)
         {

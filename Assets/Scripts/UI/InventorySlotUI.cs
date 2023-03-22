@@ -27,9 +27,18 @@ namespace UI
             UpdateSlot();
         }
 
+        private void OnDestroy()
+        {
+            if (_slot != null)
+            {
+                _slot.OnStateChanged -= UpdateSlot;
+            }
+        }
+
+        
         private void UpdateSlot()
         {
-            if (_slot.Item == null)
+            if (_slot?.Item == null)
             {
                 itemIcon.enabled = false;
                 itemCount.enabled = false;
@@ -45,39 +54,46 @@ namespace UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            // Check if it's a left click and there's an item being dragged
-            if (eventData.button == PointerEventData.InputButton.Left && ItemDragHandler.Instance.IsDragging())
+            if (eventData.button == PointerEventData.InputButton.Left)
             {
-                // Add the dragged item to the current slot
-                var item = ItemDragHandler.Instance.GetItem();
-                var stack = ItemDragHandler.Instance.GetStackSize();
-                if (_slot.Item == item)
+                if (ItemDragHandler.Instance.IsDragging())
                 {
-                    _slot.Add(stack);
+                    HandleItemDrag();
                 }
-                else
+                else if (_slot?.Item != null)
                 {
-                    _slot.Add(item, stack);
+                    StartItemDrag();
                 }
+            }
+        }
 
-                // Stop dragging the item
-                ItemDragHandler.Instance.EndDrag();
-
+        private void HandleItemDrag()
+        {
+            // Add the dragged item to the current slot
+            var item = ItemDragHandler.Instance.GetItem();
+            var stack = ItemDragHandler.Instance.GetStackSize();
+            if (_slot.Item == item)
+            {
+                _slot.Add(stack);
+            }
+            else
+            {
+                _slot.Add(item, stack);
             }
 
-            // Check if it's a left click and the slot is not empty
-            else if (eventData.button == PointerEventData.InputButton.Left && _slot != null && _slot.Item != null)
-            {
-                // Remove the item from the inventory
-                PlayerManager playerManager = FindObjectOfType<PlayerManager>();
-                var item = _slot.Item;
-                var stack = _slot.StackSize;
-                _slot.RemoveAll();
+            // Stop dragging the item
+            ItemDragHandler.Instance.EndDrag();
+        }
 
-                // Start dragging the item with ItemDragHandler
-                ItemDragHandler.Instance.StartDrag(item, stack);
+        private void StartItemDrag()
+        {
+            // Remove the item from the inventory
+            var item = _slot.Item;
+            var stack = _slot.StackSize;
+            _slot.RemoveAll();
 
-            }
+            // Start dragging the item with ItemDragHandler
+            ItemDragHandler.Instance.StartDrag(item, stack);
         }
     }
 }

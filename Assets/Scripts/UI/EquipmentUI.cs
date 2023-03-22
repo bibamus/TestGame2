@@ -1,10 +1,12 @@
+using Inventory;
 using Player;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class EquipmentUI : MonoBehaviour
+    public class EquipmentUI : MonoBehaviour, IPointerClickHandler
     {
         public GameObject equipmentPanel;
         public Image weaponSlot;
@@ -50,5 +52,48 @@ namespace UI
                 UpdateUI();
             }
         }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                if (ItemDragHandler.Instance.IsDragging())
+                {
+                    // Handle item drop based on the current pointer position
+                    HandleItemDrop(eventData);
+                }
+            }
+        }
+        
+        private void HandleItemDrop(PointerEventData eventData)
+        {
+            var item = ItemDragHandler.Instance.GetItem();
+
+            // Check if the pointer is over the weapon or pickaxe slots
+            if (RectTransformUtility.RectangleContainsScreenPoint(weaponSlot.rectTransform, eventData.position, eventData.pressEventCamera))
+            {
+                if (item.itemData.itemType == ItemType.Weapon)
+                {
+                    Item oldWeapon = _playerManager.EquipWeapon(item);
+                    UpdateUI();
+                    ItemDragHandler.Instance.EndDrag();
+                    if (oldWeapon != null)
+                    {
+                        ItemDragHandler.Instance.StartDrag(oldWeapon);
+                    }
+                }
+            }
+            else if (RectTransformUtility.RectangleContainsScreenPoint(pickaxeSlot.rectTransform, eventData.position, eventData.pressEventCamera))
+            {
+                if (item.itemData.itemType == ItemType.Pickaxe)
+                {
+                    _playerManager.EquipPickaxe(item);
+                    UpdateUI();
+                    ItemDragHandler.Instance.EndDrag();
+                }
+            }
+        }
+
+        
     }
 }

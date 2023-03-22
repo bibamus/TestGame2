@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Inventory
@@ -9,12 +10,7 @@ namespace Inventory
         public string itemName;
         public int itemId;
         public Sprite itemSprite;
-
-        public ItemData(string name, int id, Sprite sprite)
-        {
-            itemName = name;
-            itemId = id;
-            itemSprite = sprite;
-        }
+        public ItemType itemType;
+        public int maxStackSize;
     }
 }

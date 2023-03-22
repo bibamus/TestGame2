@@ -55,6 +55,11 @@ namespace Inventory
                 OnStateChanged?.Invoke();
             }
         }
+
+        public bool CanAcceptItem(Item item, int count)
+        {
+            return Item == item && StackSize + count < Item.itemData.maxStackSize;
+        }
     }
 
 
@@ -79,20 +84,20 @@ namespace Inventory
 
         public void AddItem(Item item, int count = 1)
         {
+            // If item is null, do nothing and return
             if (item == null) return;
-            var inventorySlot = _slots.FirstOrDefault(s => s != null && s.Item == item);
+
+            // Try to find an existing slot containing the same item
+            var inventorySlot = _slots.FirstOrDefault(s => s != null && s.CanAcceptItem(item, count));
             if (inventorySlot != null)
             {
                 inventorySlot.Add(count);
             }
             else
             {
-                var availableSlotIndex = Array.FindIndex(_slots, s => s.Item == null);
-                if (availableSlotIndex >= 0)
-                {
-                    _slots[availableSlotIndex].Item = item;
-                    _slots[availableSlotIndex].StackSize = count;
-                }
+                // If no existing slot is found, try to find an empty slot
+                var availableSlot = _slots.FirstOrDefault(s => s != null && s.Item == null);
+                availableSlot?.Add(item, count);
             }
         }
 
