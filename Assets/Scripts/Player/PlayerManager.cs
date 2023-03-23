@@ -41,8 +41,8 @@ namespace Player
             EquipWeapon(startingWeapon);
             EquipPickaxe(startingPickaxe);
 
-            HotBar.Actions[0] = new ItemHotBarAction(WeaponObject);
-            HotBar.Actions[1] = new ItemHotBarAction(PickaxeObject);
+            HotBar.Actions[0] = new ItemSupplierHotBarAction(() => WeaponObject);
+            HotBar.Actions[1] = new ItemSupplierHotBarAction(() => PickaxeObject);
 
         }
 

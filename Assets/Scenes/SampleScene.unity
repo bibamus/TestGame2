@@ -1220,6 +1220,7 @@ MonoBehaviour:
   equipmentPanel: {fileID: 1542250242}
   weaponSlot: {fileID: 1391757086}
   pickaxeSlot: {fileID: 2065088043}
+  playerManager: {fileID: 1395021612}
 --- !u!114 &1542250246
 MonoBehaviour:
   m_ObjectHideFlags: 0

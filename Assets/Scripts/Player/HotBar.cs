@@ -1,4 +1,5 @@
-﻿using Inventory;
+﻿using System;
+using Inventory;
 using UnityEngine;
 
 namespace Player
@@ -33,6 +34,31 @@ namespace Player
         public Sprite Sprite()
         {
             return _item.ItemSprite;
+        }
+    }
+
+    public class ItemSupplierHotBarAction : HotBarAction
+    {
+        private readonly Func<Item> _supplier;
+
+        public ItemSupplierHotBarAction(Func<Item> supplier)
+        {
+            _supplier = supplier;
+        }
+
+        public void UseStart()
+        {
+            _supplier.Invoke().UseStart();
+        }
+
+        public void UseEnd()
+        {
+           _supplier.Invoke().UseEnd();
+        }
+
+        public Sprite Sprite()
+        {
+            return _supplier.Invoke().ItemSprite;
         }
     }
 
