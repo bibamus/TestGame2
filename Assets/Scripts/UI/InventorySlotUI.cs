@@ -47,7 +47,7 @@ namespace UI
             {
                 itemIcon.enabled = true;
                 itemCount.enabled = true;
-                itemIcon.sprite = _slot.Item.itemSprite;
+                itemIcon.sprite = _slot.Item.ItemSprite;
                 itemCount.text = _slot.StackSize.ToString();
             }
         }

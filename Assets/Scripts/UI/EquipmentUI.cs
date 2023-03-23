@@ -24,7 +24,7 @@ namespace UI
         {
             if (_playerManager.Equipment.EquippedWeapon != null)
             {
-                weaponSlot.sprite = _playerManager.Equipment.EquippedWeapon.itemSprite;
+                weaponSlot.sprite = _playerManager.Equipment.EquippedWeapon.ItemSprite;
                 weaponSlot.enabled = true;
             }
             else
@@ -34,7 +34,7 @@ namespace UI
 
             if (_playerManager.Equipment.EquippedPickaxe != null)
             {
-                pickaxeSlot.sprite = _playerManager.Equipment.EquippedPickaxe.itemSprite;
+                pickaxeSlot.sprite = _playerManager.Equipment.EquippedPickaxe.ItemSprite;
                 pickaxeSlot.enabled = true;
             }
             else
@@ -72,7 +72,7 @@ namespace UI
             // Check if the pointer is over the weapon or pickaxe slots
             if (RectTransformUtility.RectangleContainsScreenPoint(weaponSlot.rectTransform, eventData.position, eventData.pressEventCamera))
             {
-                if (item.itemType == ItemType.Weapon)
+                if (item.ItemType == ItemType.Weapon)
                 {
                     Item oldWeapon = _playerManager.EquipWeapon(item);
                     UpdateUI();
@@ -85,7 +85,7 @@ namespace UI
             }
             else if (RectTransformUtility.RectangleContainsScreenPoint(pickaxeSlot.rectTransform, eventData.position, eventData.pressEventCamera))
             {
-                if (item.itemType == ItemType.Pickaxe)
+                if (item.ItemType == ItemType.Pickaxe)
                 {
                     _playerManager.EquipPickaxe(item);
                     UpdateUI();

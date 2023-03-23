@@ -11,22 +11,28 @@ namespace Inventory
     [RequireComponent(typeof(SpriteRenderer))]
     public class Item : MonoBehaviour
     {
-        public string itemName;
-        public int itemId;
-        public Sprite itemSprite;
-        public ItemType itemType;
-        public int maxStackSize = 1;
+        [SerializeField] private string itemName;
+        [SerializeField] private int itemId;
+        [SerializeField] private Sprite itemSprite;
+        [SerializeField] private ItemType itemType;
+        [SerializeField] private int maxStackSize = 1;
 
         public UnityEvent<PlayerManager, WorldManager, Item> onUseStart;
         public UnityEvent<PlayerManager, WorldManager, Item> onUseEnd;
         private PlayerManager _playerManager;
         private WorldManager _worldManager;
 
+        public Sprite ItemSprite => itemSprite;
+
+        public ItemType ItemType => itemType;
+
+        public int MaxStackSize => maxStackSize;
+
 
         private void Awake()
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = itemSprite;
+            spriteRenderer.sprite = ItemSprite;
             _playerManager = FindObjectOfType<PlayerManager>();
             _worldManager = FindObjectOfType<WorldManager>();
         }

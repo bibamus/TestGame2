@@ -1,3 +1,4 @@
+using System;
 using Inventory;
 using UI;
 using UnityEngine;
@@ -28,6 +29,8 @@ namespace Player
         private InventoryUI _inventoryUI;
         private EquipmentUI _equipmentUI;
 
+        private bool _isJumpRequested;
+
         void Start()
         {
             _playerManager = GetComponent<PlayerManager>();
@@ -44,12 +47,21 @@ namespace Player
             return new Vector3(0, offsetY, 0);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             UpdateGroundedState();
             UpdateMovement();
             CheckForJump();
             UpdateFacingDirection();
+        }
+
+        private void Update()
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                _isJumpRequested = true;
+            }
+
             if (_playerManager.WeaponObject != null)
             {
                 HandleWeaponInput();
@@ -65,7 +77,6 @@ namespace Player
                 _inventoryUI.ToggleInventory();
                 _equipmentUI.ToggleEquipment();
             }
-            
         }
 
         private void HandlePickaxeInput()
@@ -113,10 +124,12 @@ namespace Player
 
         private void CheckForJump()
         {
-            if (Input.GetButtonDown("Jump") && _isGrounded)
+            if (_isJumpRequested && _isGrounded)
             {
                 _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
+
+            _isJumpRequested = false;
         }
 
         private void UpdateFacingDirection()
