@@ -11,7 +11,11 @@ namespace Inventory
     [RequireComponent(typeof(SpriteRenderer))]
     public class Item : MonoBehaviour
     {
-        public ItemData itemData;
+        public string itemName;
+        public int itemId;
+        public Sprite itemSprite;
+        public ItemType itemType;
+        public int maxStackSize = 1;
 
         public UnityEvent<PlayerManager, WorldManager, Item> onUseStart;
         public UnityEvent<PlayerManager, WorldManager, Item> onUseEnd;
@@ -22,7 +26,7 @@ namespace Inventory
         private void Awake()
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sprite = itemData.itemSprite;
+            spriteRenderer.sprite = itemSprite;
             _playerManager = FindObjectOfType<PlayerManager>();
             _worldManager = FindObjectOfType<WorldManager>();
         }

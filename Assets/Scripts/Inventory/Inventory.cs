@@ -58,7 +58,7 @@ namespace Inventory
 
         public bool CanAcceptItem(Item item, int count)
         {
-            return Item == item && StackSize + count < Item.itemData.maxStackSize;
+            return Item == item && StackSize + count < Item.maxStackSize;
         }
     }
 

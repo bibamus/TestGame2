@@ -19,7 +19,7 @@ namespace UI
             _item = item;
             _stack = stack;
 
-            itemIcon.sprite = _item.itemData.itemSprite;
+            itemIcon.sprite = _item.itemSprite;
             itemCount.text = _stack.ToString();
         }
     }

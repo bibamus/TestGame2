@@ -110,7 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15842b28c7fa1b146b0f1c49354ebba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: ea3d4c06b213a7347ae0e38a922e66c6, type: 2}
+  itemName: Some Pickaxe
+  itemId: 1
+  itemSprite: {fileID: 21300000, guid: 7e5fffc5883746e4baddd83aa6ef1d8e, type: 3}
+  itemType: 1
+  maxStackSize: 1
   onUseStart:
     m_PersistentCalls:
       m_Calls:

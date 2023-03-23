@@ -5,7 +5,8 @@ namespace Inventory
 {
     public class SwingableItem : MonoBehaviour
     {
-        public static IEnumerator SwingCoroutine(bool facingRight, float swingDuration, Transform transform, Transform anchor, float swingAngle, float swingOffset, float radius)
+        public static IEnumerator SwingCoroutine(bool facingRight, float swingDuration, Transform transform,
+            Transform anchor, float swingAngle, float swingOffset, float radius)
         {
             float swingTimer = 0f;
             const float weaponAngle = 0;

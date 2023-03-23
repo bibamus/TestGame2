@@ -110,7 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15842b28c7fa1b146b0f1c49354ebba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: eee802971acd12440b241c0e57f925d0, type: 2}
+  itemName: Stick
+  itemId: 0
+  itemSprite: {fileID: 21300000, guid: 091a6ed27cac9be439aacf5927089058, type: 3}
+  itemType: 0
+  maxStackSize: 1
   onUseStart:
     m_PersistentCalls:
       m_Calls:
