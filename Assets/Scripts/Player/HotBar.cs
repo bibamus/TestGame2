@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Player
 {
-    public interface HotBarAction
+    public interface IHotBarAction
     {
         public void UseStart();
         public void UseEnd();
@@ -12,7 +12,7 @@ namespace Player
         public Sprite Sprite();
     }
 
-    public class ItemHotBarAction : HotBarAction
+    public class ItemHotBarAction : IHotBarAction
     {
         private Item _item;
 
@@ -37,7 +37,7 @@ namespace Player
         }
     }
 
-    public class ItemSupplierHotBarAction : HotBarAction
+    public class ItemSupplierHotBarAction : IHotBarAction
     {
         private readonly Func<Item> _supplier;
 
@@ -64,13 +64,13 @@ namespace Player
 
     public class HotBar
     {
-        public HotBarAction[] Actions { get; }
+        public IHotBarAction[] Actions { get; }
 
         public int SelectedActionIndex { get; set; }
 
         public HotBar(int size)
         {
-            Actions = new HotBarAction[size];
+            Actions = new IHotBarAction[size];
         }
 
         public void SetSelectedHot(int index)
@@ -83,7 +83,7 @@ namespace Player
             SelectedActionIndex = index;
         }
 
-        public HotBarAction GetSelectedAction()
+        public IHotBarAction GetSelectedAction()
         {
             return Actions[SelectedActionIndex];
         }
