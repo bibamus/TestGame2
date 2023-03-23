@@ -15,3 +15,5 @@ MonoBehaviour:
   itemName: SomePickAxe
   itemId: 0
   itemSprite: {fileID: 21300000, guid: 4d5f6d0f6ac3d614c8eb6dbb7332c3a1, type: 3}
+  itemType: 1
+  maxStackSize: 1

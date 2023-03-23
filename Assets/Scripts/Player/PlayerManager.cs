@@ -38,18 +38,8 @@ namespace Player
             
             EquipWeapon(startingWeapon);
 
-            var pickaxe = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
-            pickaxe.gameObject.SetActive(false);
-            EquipPickaxe(pickaxe);
-
-            // var weapon2 = Instantiate(startingWeapon.gameObject, itemAnchor).GetComponent<Item>();
-            // weapon2.gameObject.SetActive(false);
-            //
-            // Inventory.AddItem(weapon2);
-            //
-            // var pickaxe2 = Instantiate(startingPickaxe.gameObject, itemAnchor).GetComponent<Item>();
-            // pickaxe2.gameObject.SetActive(false);
-            // Inventory.AddItem(pickaxe2);
+            EquipPickaxe(startingPickaxe);
+            
         }
 
         public Item EquipWeapon(Item weapon)
@@ -62,6 +52,7 @@ namespace Player
             }
 
             WeaponObject = Instantiate(weapon, itemAnchor);
+            WeaponObject.gameObject.SetActive(false);
 
             return oldWeapon;
         }
@@ -75,6 +66,7 @@ namespace Player
                 Destroy(PickaxeObject,1f);
             }
             PickaxeObject = Instantiate(pickaxe, itemAnchor);
+            PickaxeObject.gameObject.SetActive(false);
 
             return oldPickaxe;
         }

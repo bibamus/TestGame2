@@ -15,13 +15,14 @@ namespace Inventory
                 swingTimer += Time.deltaTime;
                 float swingProgress = swingTimer / swingDuration;
                 float swingDirection = facingRight ? -1f : 1f;
-                float swingAngleOffset = Mathf.Lerp(0, swingAngle * swingDirection, swingProgress);
+                float swingAngleOffset = Mathf.Lerp(0, swingAngle, swingProgress);
 
                 Vector3 weaponOffset = new Vector3(
                     Mathf.Cos(Mathf.Deg2Rad * (weaponAngle + swingAngleOffset + swingOffset)) * radius,
                     Mathf.Sin(Mathf.Deg2Rad * (weaponAngle + swingAngleOffset + swingOffset)) * radius,
                     0
                 );
+                weaponOffset.x *= swingDirection;
                 Vector3 weaponPosition = anchor.position + weaponOffset;
                 transform.position = weaponPosition;
 

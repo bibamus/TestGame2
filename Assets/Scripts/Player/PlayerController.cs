@@ -70,7 +70,7 @@ namespace Player
 
         private void HandlePickaxeInput()
         {
-            Item pickaxe = _playerManager.Equipment.EquippedPickaxe;
+            Item pickaxe = _playerManager.PickaxeObject;
 
             if (Input.GetMouseButtonDown(1))
             {
