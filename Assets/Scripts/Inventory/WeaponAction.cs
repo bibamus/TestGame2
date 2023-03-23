@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
@@ -10,11 +11,20 @@ namespace Inventory
     {
         private const float SwingDuration = 0.4f;
         private bool _facingRight;
+        private Item _item;
+
+
+        private void Start()
+        {
+            _item = GetComponent<Item>();
+            _item.onUseStart += StartAction;
+        }
 
         public void StartAction(PlayerManager playerManager, WorldManager worldManager, Item item)
         {
             _facingRight = playerManager.PlayerController.FacingRight;
             StartCoroutine(SwingAndDeactivate(item));
+
         }
 
         private IEnumerator SwingAndDeactivate(Item item)

@@ -24,6 +24,7 @@ namespace Player
         public PlayerController PlayerController { get; private set; }
 
         public Inventory.Inventory Inventory { get; private set; }
+        public HotBar HotBar { get; private set; }
 
         public Item WeaponObject { get; private set; }
         public Item PickaxeObject { get; private set; }
@@ -34,12 +35,15 @@ namespace Player
             PlayerController = GetComponent<PlayerController>();
             _playerState = new PlayerState(startingMaxHp, startingMaxMana);
             Inventory = new Inventory.Inventory(100);
+            HotBar = new HotBar(10);
             Equipment = new Equipment();
             
             EquipWeapon(startingWeapon);
-
             EquipPickaxe(startingPickaxe);
-            
+
+            HotBar.Actions[0] = new ItemHotBarAction(WeaponObject);
+            HotBar.Actions[1] = new ItemHotBarAction(PickaxeObject);
+
         }
 
         public Item EquipWeapon(Item weapon)
@@ -70,6 +74,8 @@ namespace Player
 
             return oldPickaxe;
         }
+        
+
 
         public void TakeDamage(int damage)
         {

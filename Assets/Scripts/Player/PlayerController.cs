@@ -1,5 +1,4 @@
 using System;
-using Inventory;
 using UI;
 using UnityEngine;
 using World;
@@ -62,15 +61,8 @@ namespace Player
                 _isJumpRequested = true;
             }
 
-            if (_playerManager.WeaponObject != null)
-            {
-                HandleWeaponInput();
-            }
-
-            if (_playerManager.Equipment.EquippedPickaxe != null)
-            {
-                HandlePickaxeInput();
-            }
+            HandleMouseWheelInput();
+            HandleHotBarInput();
 
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -79,31 +71,31 @@ namespace Player
             }
         }
 
-        private void HandlePickaxeInput()
+        private void HandleHotBarInput()
         {
-            Item pickaxe = _playerManager.PickaxeObject;
-
-            if (Input.GetMouseButtonDown(1))
+            if (_playerManager.HotBar.GetSelectedAction() != null)
             {
-                pickaxe.UseStart();
-            }
-            else if (Input.GetMouseButtonUp(1))
-            {
-                pickaxe.UseEnd();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    _playerManager.HotBar.GetSelectedAction().UseStart();
+                }
+                else if (Input.GetMouseButtonUp(0))
+                {
+                    _playerManager.HotBar.GetSelectedAction().UseEnd();
+                }
             }
         }
 
-        private void HandleWeaponInput()
+        private void HandleMouseWheelInput()
         {
-            Item weapon = _playerManager.WeaponObject;
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll != 0)
+            {
+                int newIndex = _playerManager.HotBar.SelectedActionIndex + (scroll > 0 ? -1 : 1);
+                int actionsLength = _playerManager.HotBar.Actions.Length;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                weapon.UseStart();
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                weapon.UseEnd();
+                newIndex = (newIndex + actionsLength) % actionsLength; // Wrap around the index
+                _playerManager.HotBar.SetSelectedHot(newIndex);
             }
         }
 

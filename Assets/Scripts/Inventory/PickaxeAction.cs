@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Player;
 using UnityEngine;
 using World;
@@ -10,12 +11,15 @@ namespace Inventory
         private const float SwingDuration = 0.4f;
         private bool _facingRight;
         private Camera _camera;
+        private Item _item;
 
         private void Start()
         {
             _camera = Camera.main;
-        }
+            _item = GetComponent<Item>();
+            _item.onUseStart += StartAction;
 
+        }
         public void StartAction(PlayerManager playerManager, WorldManager worldManager, Item item)
         {
             _facingRight = playerManager.PlayerController.FacingRight;

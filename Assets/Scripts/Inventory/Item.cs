@@ -17,8 +17,8 @@ namespace Inventory
         [SerializeField] private ItemType itemType;
         [SerializeField] private int maxStackSize = 1;
 
-        public UnityEvent<PlayerManager, WorldManager, Item> onUseStart;
-        public UnityEvent<PlayerManager, WorldManager, Item> onUseEnd;
+        public event Action<PlayerManager, WorldManager, Item> onUseStart;
+        public event Action<PlayerManager, WorldManager, Item> onUseEnd;
         private PlayerManager _playerManager;
         private WorldManager _worldManager;
 
@@ -40,12 +40,12 @@ namespace Inventory
         public void UseStart()
         {
             gameObject.SetActive(true);
-            onUseStart.Invoke(_playerManager, _worldManager, this);
+            onUseStart?.Invoke(_playerManager, _worldManager, this);
         }
 
         public void UseEnd()
         {
-            onUseEnd.Invoke(_playerManager, _worldManager, this);
+            onUseEnd?.Invoke(_playerManager, _worldManager, this);
             gameObject.SetActive(false);
         }
     }
