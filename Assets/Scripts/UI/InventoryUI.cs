@@ -23,13 +23,9 @@ namespace UI
                 InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();
                 slotUI.SetSlot(slot);
             }
-            inventoryPanel.SetActive(false);
         }
 
 
-        public void ToggleInventory()
-        {
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-        }
+
     }
 }

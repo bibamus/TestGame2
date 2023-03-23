@@ -17,7 +17,6 @@ namespace UI
         private void Start()
         {
             _playerManager = FindObjectOfType<PlayerManager>();
-            gameObject.SetActive(false);
         }
 
         public void UpdateUI()
@@ -42,16 +41,7 @@ namespace UI
                 pickaxeSlot.enabled = false;
             }
         }
-
-        public void ToggleEquipment()
-        {
-            equipmentPanel.SetActive(!equipmentPanel.activeSelf);
-
-            if (equipmentPanel.activeSelf)
-            {
-                UpdateUI();
-            }
-        }
+        
 
         public void OnPointerClick(PointerEventData eventData)
         {

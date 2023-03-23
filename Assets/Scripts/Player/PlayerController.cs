@@ -1,6 +1,7 @@
 using System;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using World;
 
 namespace Player
@@ -25,8 +26,8 @@ namespace Player
 
         public bool FacingRight => _facingRight;
 
-        private InventoryUI _inventoryUI;
-        private EquipmentUI _equipmentUI;
+       [SerializeField] private InGameMenuUI inGameMenu;
+    
 
         private bool _isJumpRequested;
 
@@ -36,8 +37,7 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
-            _inventoryUI = FindObjectOfType<InventoryUI>(true);
-            _equipmentUI = FindObjectOfType<EquipmentUI>(true);
+
         }
 
         private Vector3 GetSpawnPositionOffset()
@@ -66,8 +66,7 @@ namespace Player
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _inventoryUI.ToggleInventory();
-                _equipmentUI.ToggleEquipment();
+                inGameMenu.Toggle();
             }
         }
 
