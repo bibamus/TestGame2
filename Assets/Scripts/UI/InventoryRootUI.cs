@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class InGameMenuUI : MonoBehaviour
+    public class InventoryRootUI : MonoBehaviour
     {
         private void Start()
         {

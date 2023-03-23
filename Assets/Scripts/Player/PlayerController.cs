@@ -26,7 +26,7 @@ namespace Player
 
         public bool FacingRight => _facingRight;
 
-       [SerializeField] private InGameMenuUI inGameMenu;
+       [FormerlySerializedAs("inGameMenu")] [SerializeField] private InventoryRootUI inventoryRoot;
     
 
         private bool _isJumpRequested;
@@ -66,7 +66,7 @@ namespace Player
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                inGameMenu.Toggle();
+                inventoryRoot.Toggle();
             }
         }
 
