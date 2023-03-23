@@ -872,6 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDragPrefab: {fileID: 2908150665046385361, guid: b1ab7e2f3d32b274c846806df642894c, type: 3}
+  canvas: {fileID: 239568587}
 --- !u!222 &815825899
 CanvasRenderer:
   m_ObjectHideFlags: 0

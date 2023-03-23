@@ -9,15 +9,12 @@ namespace UI
 {
     public class HotBarSlotUI : MonoBehaviour
     {
-        private IHotBarAction _hotBarAction;
-
         [SerializeField] private Image hotBarActionImage;
         [SerializeField] private Image activeImage;
 
 
         public void SetHotBarAction(IHotBarAction hotBarAction, bool active)
         {
-            _hotBarAction = hotBarAction;
             hotBarActionImage.enabled = hotBarAction != null;
             activeImage.enabled = active;
             if (hotBarAction != null)
