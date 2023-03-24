@@ -51,7 +51,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d1106cf3bd1140c46ba183da6ff2e5be, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -77,6 +77,16 @@ MonoBehaviour:
   patrolRange: 30
   detectionRange: 5
   moveSpeed: 3
+  jumpForce: 1.5
+  obstacleDetectionDistance: 2
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  changeDirectionProbability: 0.01
+  groundedCheckDistance: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!212 &1552804766218414074
 SpriteRenderer:
   m_ObjectHideFlags: 0

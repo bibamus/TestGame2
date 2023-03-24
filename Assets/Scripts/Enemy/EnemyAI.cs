@@ -10,6 +10,13 @@ namespace Enemy
         public float patrolRange = 10f;
         public float detectionRange = 5f;
         public float moveSpeed = 3f;
+        public float jumpForce = 1f;
+        public float obstacleDetectionDistance = 1f;
+        [SerializeField] private LayerMask obstacleLayer;
+        public float changeDirectionProbability = 0.01f; // The probability of changing direction each frame (0 to 1)
+
+        public float groundedCheckDistance = 0.1f;
+        [SerializeField] private LayerMask groundLayer;
 
         private Transform _player;
         private Vector2 _startPosition;
@@ -17,6 +24,7 @@ namespace Enemy
         private bool _isMovingRight;
 
         private Rigidbody2D _rigidbody;
+        private BoxCollider2D _collider;
 
         private void Start()
         {
@@ -26,6 +34,7 @@ namespace Enemy
             _isMovingRight = true;
 
             _rigidbody = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<BoxCollider2D>();
         }
 
         private void Update()
@@ -45,13 +54,14 @@ namespace Enemy
             float direction = _isMovingRight ? 1 : -1;
             _rigidbody.velocity = new Vector2(direction * moveSpeed, _rigidbody.velocity.y);
 
-            if (_isMovingRight && transform.position.x >= _endPosition.x)
+            if (Random.value <= changeDirectionProbability)
             {
-                _isMovingRight = false;
+                _isMovingRight = !_isMovingRight;
             }
-            else if (!_isMovingRight && transform.position.x <= _startPosition.x)
+
+            if (ObstacleInFront() && IsGrounded())
             {
-                _isMovingRight = true;
+                Jump();
             }
         }
 
@@ -59,8 +69,35 @@ namespace Enemy
         {
             Vector2 direction = _player.position - transform.position;
             _rigidbody.velocity = new Vector2(direction.normalized.x * moveSpeed, _rigidbody.velocity.y);
+
+            if (ObstacleInFront() && IsGrounded())
+            {
+                Jump();
+            }
         }
 
+        private bool ObstacleInFront()
+        {
+            float direction = _isMovingRight ? 1 : -1;
+            Vector2 origin = new Vector2(transform.position.x, transform.position.y);
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * direction, obstacleDetectionDistance,
+                obstacleLayer);
+            return hit.collider != null;
+        }
 
+        private void Jump()
+        {
+            _rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
+        private bool IsGrounded()
+        {
+            var bounds = _collider.bounds;
+            var origin = new Vector2(bounds.center.x, bounds.min.y);
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down,
+                groundedCheckDistance, groundLayer);
+            Debug.DrawLine(origin, origin + Vector2.down * groundedCheckDistance,Color.magenta);
+            return hit.collider != null;
+        }
     }
 }
