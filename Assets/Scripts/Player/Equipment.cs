@@ -1,4 +1,4 @@
-using Inventory;
+using Items;
 
 namespace Player
 {

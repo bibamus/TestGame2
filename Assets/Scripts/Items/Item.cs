@@ -1,12 +1,9 @@
 using System;
 using Player;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 using World;
 
-namespace Inventory
+namespace Items
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class Item : MonoBehaviour

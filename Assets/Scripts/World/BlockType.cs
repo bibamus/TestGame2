@@ -1,4 +1,4 @@
-using Inventory;
+using Items;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 

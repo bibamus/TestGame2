@@ -1,5 +1,5 @@
 ﻿using System;
-using Inventory;
+using Items;
 using UnityEngine;
 
 namespace Player

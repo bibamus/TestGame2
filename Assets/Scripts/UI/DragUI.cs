@@ -1,4 +1,4 @@
-﻿using Inventory;
+﻿using Items;
 using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;

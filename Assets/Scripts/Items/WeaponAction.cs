@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using Player;
 using UnityEngine;
 using World;
 
-namespace Inventory
+namespace Items
 {
     public class WeaponAction : MonoBehaviour
     {
@@ -32,7 +30,7 @@ namespace Inventory
             const float swingAngle = 120f;
             const float swingOffset = 30f;
             const float radius = 1f;
-            yield return StartCoroutine(SwingableItem.SwingCoroutine(_facingRight, SwingDuration, transform,
+            yield return StartCoroutine(SwingAction.SwingCoroutine(_facingRight, SwingDuration, transform,
                 transform.parent,
                 swingAngle, swingOffset, radius));
             item.UseEnd();

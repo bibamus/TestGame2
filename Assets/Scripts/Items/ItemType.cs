@@ -1,4 +1,4 @@
-﻿namespace Inventory
+﻿namespace Items
 {
     public enum ItemType
     {

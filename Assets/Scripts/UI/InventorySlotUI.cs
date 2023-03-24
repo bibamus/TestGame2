@@ -1,6 +1,6 @@
 using System;
-using Inventory;
 using Player;
+using Player.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

@@ -1,4 +1,3 @@
-using Inventory;
 using Player;
 using UnityEngine;
 using UnityEngine.Serialization;

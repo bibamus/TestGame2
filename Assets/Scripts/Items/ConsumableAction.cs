@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Inventory
+namespace Items
 {
     public class ConsumableAction : MonoBehaviour
     {

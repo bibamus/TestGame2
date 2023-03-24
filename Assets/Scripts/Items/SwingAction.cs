@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
-namespace Inventory
+namespace Items
 {
-    public class SwingableItem : MonoBehaviour
+    public class SwingAction : MonoBehaviour
     {
         
         public static IEnumerator SwingCoroutine(bool facingRight, float swingDuration, Transform transform,
