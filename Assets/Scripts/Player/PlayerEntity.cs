@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 namespace Player
 {
     [DefaultExecutionOrder(-900)]
-    public class PlayerManager : MonoBehaviour
+    public class PlayerEntity : MonoBehaviour
     {
         public int startingMaxHp = 100;
         public int startingMaxMana = 100;

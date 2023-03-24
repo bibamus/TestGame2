@@ -3,6 +3,7 @@ using Items;
 using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -13,7 +14,7 @@ namespace UI
         public Image weaponSlot;
         public Image pickaxeSlot;
 
-        [SerializeField] private PlayerManager playerManager;
+        [FormerlySerializedAs("playerManager")] [SerializeField] private PlayerEntity playerEntity;
 
 
 
@@ -24,9 +25,9 @@ namespace UI
 
         public void UpdateUI()
         {
-            if (playerManager.Equipment?.EquippedWeapon != null)
+            if (playerEntity.Equipment?.EquippedWeapon != null)
             {
-                weaponSlot.sprite = playerManager.Equipment.EquippedWeapon.ItemSprite;
+                weaponSlot.sprite = playerEntity.Equipment.EquippedWeapon.ItemSprite;
                 weaponSlot.enabled = true;
             }
             else
@@ -34,9 +35,9 @@ namespace UI
                 weaponSlot.enabled = false;
             }
 
-            if (playerManager.Equipment?.EquippedPickaxe != null)
+            if (playerEntity.Equipment?.EquippedPickaxe != null)
             {
-                pickaxeSlot.sprite = playerManager.Equipment.EquippedPickaxe.ItemSprite;
+                pickaxeSlot.sprite = playerEntity.Equipment.EquippedPickaxe.ItemSprite;
                 pickaxeSlot.enabled = true;
             }
             else
@@ -67,7 +68,7 @@ namespace UI
             {
                 if (item.ItemType == ItemType.Weapon)
                 {
-                    Item oldWeapon = playerManager.EquipWeapon(item);
+                    Item oldWeapon = playerEntity.EquipWeapon(item);
                     UpdateUI();
                     ItemDragHandler.Instance.EndDrag();
                     if (oldWeapon != null)
@@ -80,7 +81,7 @@ namespace UI
             {
                 if (item.ItemType == ItemType.Pickaxe)
                 {
-                    playerManager.EquipPickaxe(item);
+                    playerEntity.EquipPickaxe(item);
                     UpdateUI();
                     ItemDragHandler.Instance.EndDrag();
                 }

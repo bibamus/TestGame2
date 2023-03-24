@@ -12,11 +12,11 @@ namespace UI
         [SerializeField] private GameObject inventorySlotPrefab;
 
 
-        [SerializeField] private PlayerManager playerManager;
+        [FormerlySerializedAs("playerManager")] [SerializeField] private PlayerEntity playerEntity;
 
         private void Start()
         {
-            foreach (var slot in playerManager.Inventory.GetSlots())
+            foreach (var slot in playerEntity.Inventory.GetSlots())
             {
                 GameObject slotObj = Instantiate(inventorySlotPrefab, gridLayoutGroup.transform);
                 InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();

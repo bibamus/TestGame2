@@ -14,9 +14,9 @@ namespace Items
         [SerializeField] private ItemType itemType;
         [SerializeField] private int maxStackSize = 1;
 
-        public event Action<PlayerManager, WorldManager, Item> onUseStart;
-        public event Action<PlayerManager, WorldManager, Item> onUseEnd;
-        private PlayerManager _playerManager;
+        public event Action<PlayerEntity, WorldManager, Item> onUseStart;
+        public event Action<PlayerEntity, WorldManager, Item> onUseEnd;
+        private PlayerEntity _playerEntity;
         private WorldManager _worldManager;
 
         public Sprite ItemSprite => itemSprite;
@@ -30,19 +30,19 @@ namespace Items
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = ItemSprite;
-            _playerManager = FindObjectOfType<PlayerManager>();
+            _playerEntity = FindObjectOfType<PlayerEntity>();
             _worldManager = FindObjectOfType<WorldManager>();
         }
 
         public void UseStart()
         {
             gameObject.SetActive(true);
-            onUseStart?.Invoke(_playerManager, _worldManager, this);
+            onUseStart?.Invoke(_playerEntity, _worldManager, this);
         }
 
         public void UseEnd()
         {
-            onUseEnd?.Invoke(_playerManager, _worldManager, this);
+            onUseEnd?.Invoke(_playerEntity, _worldManager, this);
             gameObject.SetActive(false);
         }
     }

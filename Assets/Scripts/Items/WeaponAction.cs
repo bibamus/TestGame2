@@ -18,9 +18,9 @@ namespace Items
             _item.onUseStart += StartAction;
         }
 
-        public void StartAction(PlayerManager playerManager, WorldManager worldManager, Item item)
+        public void StartAction(PlayerEntity playerEntity, WorldManager worldManager, Item item)
         {
-            _facingRight = playerManager.PlayerController.FacingRight;
+            _facingRight = playerEntity.PlayerController.FacingRight;
             StartCoroutine(SwingAndDeactivate(item));
 
         }

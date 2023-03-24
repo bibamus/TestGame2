@@ -14,7 +14,7 @@ namespace Items
             // No action to be performed when consumable item is used
         }
 
-        public void Consume(Player.PlayerManager playerManager)
+        public void Consume(Player.PlayerEntity playerEntity)
         {
             // Add logic on consume
             Destroy(gameObject);

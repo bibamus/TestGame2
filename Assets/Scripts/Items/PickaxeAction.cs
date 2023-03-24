@@ -19,11 +19,11 @@ namespace Items
             _item.onUseStart += StartAction;
 
         }
-        public void StartAction(PlayerManager playerManager, WorldManager worldManager, Item item)
+        public void StartAction(PlayerEntity playerEntity, WorldManager worldManager, Item item)
         {
-            _facingRight = playerManager.PlayerController.FacingRight;
+            _facingRight = playerEntity.PlayerController.FacingRight;
             StartCoroutine(SwingAndDeactivate(item));
-            StartCoroutine(MineBlockCoroutine(worldManager, playerManager));
+            StartCoroutine(MineBlockCoroutine(worldManager, playerEntity));
         }
 
         
@@ -38,7 +38,7 @@ namespace Items
             item.UseEnd();
         }
 
-        private IEnumerator MineBlockCoroutine(WorldManager worldManager, PlayerManager playerManager)
+        private IEnumerator MineBlockCoroutine(WorldManager worldManager, PlayerEntity playerEntity)
         {
             // Wait for the swing animation to reach the point where the pickaxe should hit the block
             yield return new WaitForSeconds(SwingDuration / 2);
@@ -55,7 +55,7 @@ namespace Items
                 // Get the corresponding item for the mined block directly from the BlockType
                 Item blockItem = block.Type.BlockItem;
                 // Add the mined item to the player's inventory
-                playerManager.Inventory.AddItem(blockItem, 1);
+                playerEntity.Inventory.AddItem(blockItem, 1);
                 worldManager.State.RemoveBlock(new Vector2Int(tilePosition.x, tilePosition.y));
             }
         }

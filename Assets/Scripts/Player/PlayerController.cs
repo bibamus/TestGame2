@@ -22,7 +22,7 @@ namespace Player
 
         private const float GroundCheckDistance = 0.2f;
 
-        private PlayerManager _playerManager;
+        private PlayerEntity _playerEntity;
 
         public bool FacingRight => _facingRight;
 
@@ -33,7 +33,7 @@ namespace Player
 
         void Start()
         {
-            _playerManager = GetComponent<PlayerManager>();
+            _playerEntity = GetComponent<PlayerEntity>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
@@ -72,15 +72,15 @@ namespace Player
 
         private void HandleHotBarInput()
         {
-            if (_playerManager.HotBar.GetSelectedAction() != null)
+            if (_playerEntity.HotBar.GetSelectedAction() != null)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    _playerManager.HotBar.GetSelectedAction().UseStart();
+                    _playerEntity.HotBar.GetSelectedAction().UseStart();
                 }
                 else if (Input.GetMouseButtonUp(0))
                 {
-                    _playerManager.HotBar.GetSelectedAction().UseEnd();
+                    _playerEntity.HotBar.GetSelectedAction().UseEnd();
                 }
             }
         }
@@ -90,11 +90,11 @@ namespace Player
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll != 0)
             {
-                int newIndex = _playerManager.HotBar.SelectedActionIndex + (scroll > 0 ? -1 : 1);
-                int actionsLength = _playerManager.HotBar.Actions.Length;
+                int newIndex = _playerEntity.HotBar.SelectedActionIndex + (scroll > 0 ? -1 : 1);
+                int actionsLength = _playerEntity.HotBar.Actions.Length;
 
                 newIndex = (newIndex + actionsLength) % actionsLength; // Wrap around the index
-                _playerManager.HotBar.SetSelectedHot(newIndex);
+                _playerEntity.HotBar.SetSelectedHot(newIndex);
             }
         }
 
