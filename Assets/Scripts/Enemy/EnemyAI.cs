@@ -7,15 +7,15 @@ namespace Enemy
     [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyAI : MonoBehaviour
     {
-        public float patrolRange = 10f;
-        public float detectionRange = 5f;
-        public float moveSpeed = 3f;
-        public float jumpForce = 1f;
-        public float obstacleDetectionDistance = 1f;
+        [SerializeField] private  float patrolRange = 10f;
+        [SerializeField] private  float detectionRange = 5f;
+        [SerializeField] private  float moveSpeed = 3f;
+        [SerializeField] private  float jumpForce = 1f;
+        [SerializeField] private  float obstacleDetectionDistance = 1f;
         [SerializeField] private LayerMask obstacleLayer;
-        public float changeDirectionProbability = 0.01f; // The probability of changing direction each second (0 to 1)
+        [SerializeField] private  float changeDirectionProbability = 0.01f; // The probability of changing direction each second (0 to 1)
 
-        public float groundedCheckDistance = 0.1f;
+        [SerializeField] private float groundedCheckDistance = 0.1f;
         [SerializeField] private LayerMask groundLayer;
 
         private Transform _player;
