@@ -13,11 +13,11 @@ namespace Enemy
 
         private Transform _playerTransform;
         [SerializeField] private WorldManager worldManager;
+        private const int MaxSpawnAttempts = 40;
 
         private void Start()
         {
             _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
             StartCoroutine(SpawnEnemies());
         }
 
@@ -27,40 +27,40 @@ namespace Enemy
             {
                 yield return new WaitForSeconds(spawnInterval);
 
-                var found = FindSpawnPosition(out var spawnPosition);
-                if (!found) continue;
-                
-                // Check if the spawn position is inside a block
-                Block blockAtSpawnPosition = worldManager.GetBlockAtCoordinates(spawnPosition);
-
-                if (blockAtSpawnPosition == null)
+                if (FindSpawnPosition(out var spawnPosition))
                 {
-                    Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                    if (!worldManager.HasBlockAtCoordinates(spawnPosition))
+                    {
+                        Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+                    }
                 }
-
-                // Get the surface Y coordinate at the spawn position
             }
         }
 
-        private bool FindSpawnPosition(out Vector2 spawnPosition)
+        private bool FindSpawnPosition(out Vector3 spawnPosition)
         {
             int attempts = 0;
             do
             {
-                spawnPosition = new Vector2(
+                spawnPosition = new Vector3(
                     Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
-                    Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2)
+                    Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2),
+                    0
                 );
 
-                spawnPosition += (Vector2) _playerTransform.position;
+                spawnPosition += _playerTransform.position;
                 attempts++;
-                if (attempts > 40)
+                if (attempts > MaxSpawnAttempts)
                 {
                     return false;
                 }
-            } while (Vector2.Distance(spawnPosition, _playerTransform.position) < safeDistanceFromPlayer);
-
+            } while (!IsSafeSpawnPosition(spawnPosition));
             return true;
+        }
+
+        private bool IsSafeSpawnPosition(Vector3 spawnPosition)
+        {
+            return Vector3.Distance(spawnPosition, _playerTransform.position) >= safeDistanceFromPlayer;
         }
 
         private void OnDrawGizmos()

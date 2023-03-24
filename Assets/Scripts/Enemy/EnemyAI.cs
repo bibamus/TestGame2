@@ -57,10 +57,10 @@ namespace Enemy
 
         private void ChasePlayer()
         {
-            float distanceToPlayer = Vector2.Distance(transform.position, _player.position);
-
             Vector2 direction = _player.position - transform.position;
-            _rigidbody.velocity = direction.normalized * moveSpeed;
+            _rigidbody.velocity = new Vector2(direction.normalized.x * moveSpeed, _rigidbody.velocity.y);
         }
+
+
     }
 }

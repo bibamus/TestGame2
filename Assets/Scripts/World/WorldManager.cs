@@ -82,5 +82,7 @@ namespace World
             var blockCoords = new Vector2Int(worldToCell.x, worldToCell.y);
             return State.GetBlock(blockCoords);
         }
+
+        public bool HasBlockAtCoordinates(Vector2 coordinates) => GetBlockAtCoordinates(coordinates) != null;
     }
 }
