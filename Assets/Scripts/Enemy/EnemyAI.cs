@@ -13,7 +13,7 @@ namespace Enemy
         public float jumpForce = 1f;
         public float obstacleDetectionDistance = 1f;
         [SerializeField] private LayerMask obstacleLayer;
-        public float changeDirectionProbability = 0.01f; // The probability of changing direction each frame (0 to 1)
+        public float changeDirectionProbability = 0.01f; // The probability of changing direction each second (0 to 1)
 
         public float groundedCheckDistance = 0.1f;
         [SerializeField] private LayerMask groundLayer;
@@ -35,6 +35,8 @@ namespace Enemy
 
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<BoxCollider2D>();
+
+            StartCoroutine(CheckDirectionChange());
         }
 
         private void Update()
@@ -53,12 +55,6 @@ namespace Enemy
         {
             float direction = _isMovingRight ? 1 : -1;
             _rigidbody.velocity = new Vector2(direction * moveSpeed, _rigidbody.velocity.y);
-
-            if (Random.value <= changeDirectionProbability)
-            {
-                _isMovingRight = !_isMovingRight;
-            }
-
             if (ObstacleInFront() && IsGrounded())
             {
                 Jump();
@@ -96,8 +92,20 @@ namespace Enemy
             var origin = new Vector2(bounds.center.x, bounds.min.y);
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down,
                 groundedCheckDistance, groundLayer);
-            Debug.DrawLine(origin, origin + Vector2.down * groundedCheckDistance,Color.magenta);
+            Debug.DrawLine(origin, origin + Vector2.down * groundedCheckDistance, Color.magenta);
             return hit.collider != null;
+        }
+
+        private IEnumerator CheckDirectionChange()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1); // Wait for 1 second
+                if (Random.value <= changeDirectionProbability)
+                {
+                    _isMovingRight = !_isMovingRight;
+                }
+            }
         }
     }
 }
