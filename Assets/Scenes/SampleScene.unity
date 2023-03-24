@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd35359addad4e54997cca5297644913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 1395021612}
+  playerEntity: {fileID: 1395021612}
   slotPrefab: {fileID: 5609965461954696369, guid: 31f3cf7418c9bc14291edc9640ff2166, type: 3}
   gridLayoutGroup: {fileID: 293058830}
 --- !u!114 &293058832
@@ -948,7 +948,7 @@ MonoBehaviour:
   inventoryPanel: {fileID: 912193550}
   gridLayoutGroup: {fileID: 912193555}
   inventorySlotPrefab: {fileID: 7391710853774597261, guid: b28ebbaff6d9faa41a149ed89e4bbff3, type: 3}
-  playerManager: {fileID: 0}
+  playerEntity: {fileID: 0}
 --- !u!114 &912193553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,6 +1011,55 @@ MonoBehaviour:
   m_Spacing: {x: 8, y: 8}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1228554990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228554992}
+  - component: {fileID: 1228554991}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1228554991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228554990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08c135737c14cb59aca45a82d4ab5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 1699875090159471549, guid: 171bf573a4f58c1419cab0daca7f581f, type: 3}
+  spawnInterval: 5
+  spawnAreaSize: {x: 100, y: 40}
+  safeDistanceFromPlayer: 30
+  worldManager: {fileID: 360889301}
+--- !u!4 &1228554992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228554990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.609503, y: 29.408346, z: -0.054140884}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1388687962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1197,7 @@ GameObject:
   - component: {fileID: 1395021612}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1400,7 +1449,7 @@ MonoBehaviour:
   equipmentPanel: {fileID: 1542250242}
   weaponSlot: {fileID: 1391757086}
   pickaxeSlot: {fileID: 2065088043}
-  playerManager: {fileID: 1395021612}
+  playerEntity: {fileID: 1395021612}
 --- !u!114 &1542250246
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ namespace Player
 
         public bool FacingRight => _facingRight;
 
-       [FormerlySerializedAs("inGameMenu")] [SerializeField] private InventoryRootUI inventoryRoot;
+       [SerializeField] private InventoryRootUI inventoryRoot;
     
 
         private bool _isJumpRequested;

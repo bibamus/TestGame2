@@ -16,7 +16,7 @@ namespace Items
         {
             _camera = Camera.main;
             _item = GetComponent<Item>();
-            _item.onUseStart += StartAction;
+            _item.OnUseStart += StartAction;
 
         }
         public void StartAction(PlayerEntity playerEntity, WorldManager worldManager, Item item)

@@ -75,5 +75,12 @@ namespace World
             // Convert tilemap coordinates to world coordinates
             return worldTilemap.CellToWorld((Vector3Int)State.SpawnPoint) + new Vector3(0.5f, 1f, 0f);
         }
+
+        public Block GetBlockAtCoordinates(Vector2 coordinates)
+        {
+            var worldToCell = worldTilemap.WorldToCell(coordinates);
+            var blockCoords = new Vector2Int(worldToCell.x, worldToCell.y);
+            return State.GetBlock(blockCoords);
+        }
     }
 }

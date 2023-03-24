@@ -19,7 +19,7 @@ namespace World
 
 
         private int UndergroundHeight { get; }
-        private int SurfaceHeight { get; }
+        public int SurfaceHeight { get; }
         private int SkyHeight { get; }
 
         private readonly Block[,] _blocks;

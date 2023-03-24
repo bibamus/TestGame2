@@ -14,8 +14,8 @@ namespace Items
         [SerializeField] private ItemType itemType;
         [SerializeField] private int maxStackSize = 1;
 
-        public event Action<PlayerEntity, WorldManager, Item> onUseStart;
-        public event Action<PlayerEntity, WorldManager, Item> onUseEnd;
+        public event Action<PlayerEntity, WorldManager, Item> OnUseStart;
+        public event Action<PlayerEntity, WorldManager, Item> OnUseEnd;
         private PlayerEntity _playerEntity;
         private WorldManager _worldManager;
 
@@ -37,12 +37,12 @@ namespace Items
         public void UseStart()
         {
             gameObject.SetActive(true);
-            onUseStart?.Invoke(_playerEntity, _worldManager, this);
+            OnUseStart?.Invoke(_playerEntity, _worldManager, this);
         }
 
         public void UseEnd()
         {
-            onUseEnd?.Invoke(_playerEntity, _worldManager, this);
+            OnUseEnd?.Invoke(_playerEntity, _worldManager, this);
             gameObject.SetActive(false);
         }
     }
