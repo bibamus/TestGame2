@@ -75,8 +75,8 @@ namespace Enemy
         private bool ObstacleInFront()
         {
             float direction = _isMovingRight ? 1 : -1;
-            Vector2 origin = new Vector2(transform.position.x, transform.position.y);
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * direction, obstacleDetectionDistance,
+            // Vector2 origin = new Vector2(transform.position.x, transform.position.y);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * direction, obstacleDetectionDistance,
                 obstacleLayer);
             return hit.collider != null;
         }

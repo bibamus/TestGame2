@@ -8,7 +8,6 @@ namespace Enemy
     public class EnemyEntity : MonoBehaviour
     {
         public int maxHealth = 100;
-
         [SerializeField] private DropTable dropTable;
 
         private int _currentHealth;
@@ -33,18 +32,9 @@ namespace Enemy
             Debug.Log("Enemy died.");
 
             // Drop an item if there's one from the drop table
-            Item itemToDrop = dropTable.GetRandomItem();
-            if (itemToDrop != null)
-            {
-                SpawnDroppedItem(itemToDrop);
-            }
+            ItemDropper.Instance.DropItem(dropTable);
 
             Destroy(gameObject);
-        }
-
-        private void SpawnDroppedItem(Item itemToDrop)
-        {
-            Instantiate(itemToDrop, transform.position, Quaternion.identity);
         }
     }
 }

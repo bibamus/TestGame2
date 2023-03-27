@@ -10,7 +10,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         public float speed = 5f;
-        public float jumpForce = 5f;
+        public float jumpForce = 8f;
         public LayerMask groundLayer;
 
         private Rigidbody2D _rigidbody;
@@ -20,14 +20,14 @@ namespace Player
         [SerializeField] private WorldManager worldManager;
         private CapsuleCollider2D _collider;
 
-        private const float GroundCheckDistance = 0.2f;
+        [SerializeField] private float groundCheckDistance = 0.4f;
 
         private PlayerEntity _playerEntity;
 
         public bool FacingRight => _facingRight;
 
-       [SerializeField] private InventoryRootUI inventoryRoot;
-    
+        [SerializeField] private InventoryRootUI inventoryRoot;
+
 
         private bool _isJumpRequested;
 
@@ -37,7 +37,6 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody2D>();
             _collider = GetComponent<CapsuleCollider2D>();
             transform.position = worldManager.GetSpawnPositionWorld() + GetSpawnPositionOffset();
-
         }
 
         private Vector3 GetSpawnPositionOffset()
@@ -102,7 +101,7 @@ namespace Player
         private void UpdateGroundedState()
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down,
-                _collider.size.y / 2 + GroundCheckDistance, groundLayer);
+                _collider.size.y / 2 + groundCheckDistance, groundLayer);
             _isGrounded = hit.collider != null;
         }
 
